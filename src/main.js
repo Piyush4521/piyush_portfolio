@@ -205,6 +205,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initPeriodicTechMatrix();
   initLabSection();
   initContactSection();
+  initPixarAvatarInteraction();
+  initPreziPortal();
   initPortraitInteraction();
   initPwaInstall();
   initNavigationHighlighting();
@@ -774,6 +776,60 @@ function initContactSection() {
     </a>`
     )
     .join('');
+}
+
+/* -------------------------------------------------------------
+   09b. 3D Pixar Avatar Interaction & Waving Sound Effects
+------------------------------------------------------------- */
+function initPixarAvatarInteraction() {
+  const card = $('#avatar-interactive-card');
+  const speechBubble = $('#avatar-speech-bubble');
+  const waveIcon = $('#bubble-wave-icon');
+
+  if (!card) return;
+
+  // 3D card tilt tracking cursor
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotX = ((y - centerY) / centerY) * -12;
+    const rotY = ((x - centerX) / centerX) * 12;
+
+    card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+  });
+
+  card.addEventListener('mouseenter', () => {
+    audio.playWhoosh();
+    audio.triggerHaptic(12);
+  });
+
+  card.addEventListener('click', () => {
+    audio.playChime();
+    audio.triggerHaptic([15, 30, 20]);
+    if (speechBubble) {
+      speechBubble.style.transform = 'scale(1.15)';
+      setTimeout(() => {
+        speechBubble.style.transform = '';
+      }, 350);
+    }
+  });
+}
+
+function initPreziPortal() {
+  const portal = $('#prezi-portal');
+  if (!portal) return;
+
+  portal.addEventListener('click', () => {
+    triggerSpatialFlight('#about');
+  });
 }
 
 /* -------------------------------------------------------------

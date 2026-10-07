@@ -35,25 +35,6 @@
 
     <div class="stage">
       <div class="browser-frame">
-        <header class="browser-bar" aria-hidden="true">
-          <div class="traffic">
-            <span class="dot-red"></span>
-            <span class="dot-yellow"></span>
-            <span class="dot-green"></span>
-          </div>
-          <div class="address-bar">
-            <span class="lock-icon">🔒</span>
-            <span class="address-url">piyushsonawane.dev</span>
-          </div>
-          <div class="browser-icons">
-            <button class="sound-toggle-btn" id="sound-toggle-btn" type="button" aria-label="Toggle UI Sound Effects">
-              <span id="sound-icon">🔊</span> <span id="sound-label">SOUND</span>
-            </button>
-            <button class="browser-btn" aria-label="Share">⇧</button>
-            <button class="browser-btn" aria-label="Options">⋮</button>
-          </div>
-        </header>
-
         <section class="hero" id="hero" data-section>
           <div class="hero-top">
             <a class="brand" href="#hero" aria-label="Piyush Sonawane home">
@@ -120,6 +101,19 @@
           </div>
         </section>
 
+        <!-- Prezi Spatial Chromatic Gateway (Transition from Monochrome Hero to Rich Color World) -->
+        <div class="prezi-portal-gateway" id="prezi-portal" aria-hidden="true">
+          <div class="portal-spectrum-lens">
+            <span class="portal-spectrum-beam"></span>
+            <span class="portal-spectrum-beam beam-2"></span>
+          </div>
+          <div class="portal-badge-wrap">
+            <span class="portal-status-dot"></span>
+            <span class="portal-label">SPECTRUM REALM · ENTERING COLOR WORLD</span>
+            <span class="portal-arrow">↓</span>
+          </div>
+        </div>
+
         <nav class="section-nav" id="section-nav" aria-label="Portfolio sections">
           <a class="nav-link" href="#about">ABOUT</a>
           <a class="nav-link" href="#metrics">METRICS</a>
@@ -175,11 +169,11 @@
                       <span class="badge-access">ACCESS LEVEL 4</span>
                     </div>
 
-                    <div class="badge-portrait-frame" id="badge-portrait-trigger" title="Tilt or hover to reveal color portrait">
+                    <div class="badge-portrait-frame" id="badge-portrait-trigger" title="Tilt or hover badge">
                       <img 
                         class="badge-photo-img" 
                         id="badge-photo-img" 
-                        src="/assets/images/portrait-bw.webp" 
+                        src="/assets/images/pic2.png" 
                         alt="Piyush Sonawane ID Photo" 
                       />
                     </div>
@@ -390,15 +384,42 @@
 
           <!-- 06 CONTACT CHAPTER -->
           <section class="chapter contact-chapter" id="contact" data-section>
-            <div class="chapter-eyebrow-row">
-              <span class="eyebrow-dash">—</span>
-              <p class="eyebrow">06 · CONTACT & DISPATCH</p>
+            <div class="contact-split-grid">
+              <div class="contact-info-col">
+                <div class="chapter-eyebrow-row">
+                  <span class="eyebrow-dash">—</span>
+                  <p class="eyebrow">06 · CONTACT & DISPATCH</p>
+                </div>
+                <h2 class="display-heading contact-title">LET'S BUILD<br />SOMETHING.</h2>
+                <p class="contact-lead">
+                  Have a high-scale problem or engineering initiative? Piyush is open to software engineering, full-stack, AI/ML, backend, and frontend opportunities.
+                </p>
+                <div class="contact-links" id="contact-links"></div>
+              </div>
+
+              <!-- Interactive 3D Cute Pixar Avatar Greeting Card -->
+              <div class="contact-avatar-col">
+                <div class="avatar-interactive-card" id="avatar-interactive-card">
+                  <div class="avatar-speech-bubble" id="avatar-speech-bubble">
+                    <span class="bubble-wave-icon" id="bubble-wave-icon">👋</span>
+                    <span class="bubble-message">Hey! I'm Piyush. Let's connect!</span>
+                  </div>
+                  <div class="avatar-figure-frame" id="avatar-figure-frame">
+                    <img 
+                      class="avatar-pixar-img" 
+                      id="avatar-pixar-img" 
+                      src="/assets/images/pixar-avatar-wave.png" 
+                      alt="3D Pixar Character of Piyush Sonawane Waving Hello" 
+                    />
+                    <div class="avatar-aura-glow"></div>
+                  </div>
+                  <div class="avatar-status-badge">
+                    <span class="status-pulse-dot"></span>
+                    <span class="status-text">AVAILABLE FOR FULL-STACK & AI ROLES</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <h2 class="display-heading contact-title">LET'S BUILD<br />SOMETHING.</h2>
-            <p class="contact-lead">
-              Have a high-scale problem or engineering initiative? Piyush is open to software engineering, full-stack, AI/ML, backend, and frontend opportunities.
-            </p>
-            <div class="contact-links" id="contact-links"></div>
           </section>
         </main>
 
