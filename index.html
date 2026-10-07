@@ -46,6 +46,9 @@
             <span class="address-url">piyushsonawane.dev</span>
           </div>
           <div class="browser-icons">
+            <button class="sound-toggle-btn" id="sound-toggle-btn" type="button" aria-label="Toggle UI Sound Effects">
+              <span id="sound-icon">🔊</span> <span id="sound-label">SOUND</span>
+            </button>
             <button class="browser-btn" aria-label="Share">⇧</button>
             <button class="browser-btn" aria-label="Options">⋮</button>
           </div>
@@ -58,10 +61,16 @@
               <span class="brand-script-s">Sonawane</span>
               <span class="brand-title">WEB DEVELOPER</span>
             </a>
-            <button class="install-button" id="install-app-btn" type="button" aria-label="Install App as PWA">
-              <span aria-hidden="true">+</span>
-              Install App
-            </button>
+            <div class="hero-top-actions">
+              <button class="sound-toggle-pill" id="hero-sound-toggle" type="button" aria-label="Toggle audio effects">
+                <span class="sound-status-dot"></span>
+                <span class="hero-sound-text">AUDIO ON</span>
+              </button>
+              <button class="install-button" id="install-app-btn" type="button" aria-label="Install App as PWA">
+                <span aria-hidden="true">+</span>
+                Install App
+              </button>
+            </div>
           </div>
 
           <div class="hero-word" aria-hidden="true">A B O U T</div>
@@ -113,6 +122,7 @@
 
         <nav class="section-nav" id="section-nav" aria-label="Portfolio sections">
           <a class="nav-link" href="#about">ABOUT</a>
+          <a class="nav-link" href="#metrics">METRICS</a>
           <a class="nav-link" href="#work">WORK</a>
           <a class="nav-link" href="#experience">EXPERIENCE</a>
           <a class="nav-link" href="#stack">STACK</a>
@@ -153,29 +163,131 @@
                 </div>
               </div>
 
-              <div class="about-academic-col">
-                <div class="academic-card">
-                  <span class="card-eyebrow">ACADEMIC FOUNDATION</span>
-                  <h3 class="academic-degree">Bachelor of Engineering</h3>
-                  <p class="academic-institution">N. B. Navale Sinhgad College Of Engineering, Solapur</p>
-                  <div class="academic-meta-row">
-                    <span class="academic-field">Electronics & Telecom</span>
-                    <span class="academic-years">2023 – 2027</span>
-                  </div>
-                  <div class="academic-score-row">
-                    <span class="score-label">Cumulative Performance</span>
-                    <strong class="score-val">8.43 SGPA (till Sem VI)</strong>
-                  </div>
-                  <div class="academic-honors">
-                    <span class="honors-label">LEADERSHIP & RECOGNITION</span>
-                    <ul>
-                      <li>Associate General Secretary & Cultural Secretary, NBNSCOE</li>
-                      <li>Hackathon Success: 1× Winner, 2× Top 4 Finalist</li>
-                      <li>Multilingual: English, Hindi, Marathi</li>
-                    </ul>
+              <!-- 3D Gyroscope Developer ID Badge Component -->
+              <div class="about-badge-col">
+                <div class="badge-perspective-container">
+                  <div class="dev-id-badge" id="dev-id-badge">
+                    <div class="badge-glare" id="badge-glare"></div>
+                    <div class="badge-lanyard-slot"></div>
+                    
+                    <div class="badge-header">
+                      <span class="badge-title">DEVELOPER ID</span>
+                      <span class="badge-access">ACCESS LEVEL 4</span>
+                    </div>
+
+                    <div class="badge-portrait-frame" id="badge-portrait-trigger" title="Tilt or hover to reveal color portrait">
+                      <img 
+                        class="badge-photo-img" 
+                        id="badge-photo-img" 
+                        src="/assets/images/portrait-bw.webp" 
+                        alt="Piyush Sonawane ID Photo" 
+                      />
+                    </div>
+
+                    <div class="badge-info">
+                      <h3 class="badge-name">Piyush Sonawane</h3>
+                      <span class="badge-role-tag">SDE Intern · MCMH</span>
+                      <div class="badge-specs">
+                        <div class="spec-row">
+                          <span class="spec-k">LOC</span>
+                          <span class="spec-v">PUNE, MH</span>
+                        </div>
+                        <div class="spec-row">
+                          <span class="spec-k">STATUS</span>
+                          <span class="spec-v">VERIFIED ENGINEER</span>
+                        </div>
+                        <div class="spec-row">
+                          <span class="spec-k">EXP</span>
+                          <span class="spec-v">2026-09</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="badge-barcode-wrap" aria-hidden="true">
+                      <svg class="barcode-svg" viewBox="0 0 240 24" preserveAspectRatio="none">
+                        <rect x="0" y="0" width="3" height="24" fill="#111111"/>
+                        <rect x="6" y="0" width="2" height="24" fill="#111111"/>
+                        <rect x="12" y="0" width="5" height="24" fill="#111111"/>
+                        <rect x="20" y="0" width="2" height="24" fill="#111111"/>
+                        <rect x="26" y="0" width="7" height="24" fill="#111111"/>
+                        <rect x="36" y="0" width="3" height="24" fill="#111111"/>
+                        <rect x="42" y="0" width="2" height="24" fill="#111111"/>
+                        <rect x="48" y="0" width="6" height="24" fill="#111111"/>
+                        <rect x="58" y="0" width="4" height="24" fill="#111111"/>
+                        <rect x="66" y="0" width="2" height="24" fill="#111111"/>
+                        <rect x="72" y="0" width="5" height="24" fill="#111111"/>
+                        <rect x="82" y="0" width="3" height="24" fill="#111111"/>
+                        <rect x="88" y="0" width="8" height="24" fill="#111111"/>
+                        <rect x="100" y="0" width="2" height="24" fill="#111111"/>
+                        <rect x="106" y="0" width="6" height="24" fill="#111111"/>
+                        <rect x="116" y="0" width="4" height="24" fill="#111111"/>
+                        <rect x="124" y="0" width="3" height="24" fill="#111111"/>
+                        <rect x="132" y="0" width="6" height="24" fill="#111111"/>
+                        <rect x="142" y="0" width="2" height="24" fill="#111111"/>
+                        <rect x="148" y="0" width="7" height="24" fill="#111111"/>
+                        <rect x="160" y="0" width="4" height="24" fill="#111111"/>
+                        <rect x="168" y="0" width="2" height="24" fill="#111111"/>
+                        <rect x="174" y="0" width="5" height="24" fill="#111111"/>
+                        <rect x="184" y="0" width="3" height="24" fill="#111111"/>
+                        <rect x="192" y="0" width="6" height="24" fill="#111111"/>
+                        <rect x="202" y="0" width="2" height="24" fill="#111111"/>
+                        <rect x="208" y="0" width="5" height="24" fill="#111111"/>
+                        <rect x="218" y="0" width="4" height="24" fill="#111111"/>
+                        <rect x="226" y="0" width="2" height="24" fill="#111111"/>
+                        <rect x="232" y="0" width="6" height="24" fill="#111111"/>
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
+            </div>
+          </section>
+
+          <!-- BENTO METRIC GRID CHAPTER -->
+          <section class="chapter metrics-chapter" id="metrics" data-section>
+            <div class="chapter-eyebrow-row">
+              <span class="eyebrow-dash">—</span>
+              <p class="eyebrow">QUANTITATIVE EVIDENCE</p>
+            </div>
+            <h2 class="display-heading">VERIFIED MILESTONES</h2>
+            <p class="section-subheadline">Measurable engineering accomplishments and academic foundations.</p>
+
+            <div class="bento-metric-grid" id="bento-metric-grid">
+              <article class="bento-card">
+                <div class="bento-top">
+                  <span class="bento-tag">HACKATHONS</span>
+                  <strong class="bento-number" data-target="1" data-suffix="×">0</strong>
+                </div>
+                <h3 class="bento-title">Grand Winner & Finalist</h3>
+                <p class="bento-desc">1× Grand Winner, 2× Top 4 Finishes across competitive regional hackathons solving high-impact crisis and logistics problems.</p>
+              </article>
+
+              <article class="bento-card">
+                <div class="bento-top">
+                  <span class="bento-tag">ACADEMICS</span>
+                  <strong class="bento-number" data-target="8.43" data-decimals="2">0.00</strong>
+                </div>
+                <h3 class="bento-title">Cumulative SGPA</h3>
+                <p class="bento-desc">Electronics and Telecommunication Engineering (till Sem VI) at N. B. Navale Sinhgad College Of Engineering, Solapur.</p>
+              </article>
+
+              <article class="bento-card">
+                <div class="bento-top">
+                  <span class="bento-tag">ENGINEERING</span>
+                  <strong class="bento-number" data-target="9" data-suffix="+">0</strong>
+                </div>
+                <h3 class="bento-title">Production Systems</h3>
+                <p class="bento-desc">Architected across AI disaster telemetry, device incident commander, automated vision diagnostics, and reactive libraries.</p>
+              </article>
+
+              <article class="bento-card">
+                <div class="bento-top">
+                  <span class="bento-tag">INTEGRITY</span>
+                  <strong class="bento-number" data-target="100" data-suffix="%">0</strong>
+                </div>
+                <h3 class="bento-title">Defensive Reliability</h3>
+                <p class="bento-desc">Zero-trust API payload sanitization, Dockerized sandboxing, deterministic state reducers, and offline-first PWA caching.</p>
+              </article>
             </div>
           </section>
 
@@ -228,18 +340,39 @@
             </div>
           </section>
 
-          <!-- 04 STACK CHAPTER -->
+          <!-- 04 STACK CHAPTER (PERIODIC TABLE OF TECH) -->
           <section class="chapter stack-chapter" id="stack" data-section>
             <div class="chapter-head">
               <div class="chapter-eyebrow-row">
                 <span class="eyebrow-dash">—</span>
                 <p class="eyebrow">04 · TECHNICAL UNIVERSE</p>
               </div>
-              <h2 class="display-heading">ENGINEERING DNA</h2>
-              <p class="section-subheadline">Comprehensive architectural stack, runtimes, protocols, and developer toolchain.</p>
+              <h2 class="display-heading">PERIODIC TABLE OF TECH</h2>
+              <p class="section-subheadline">
+                Chemical element matrix of engineering runtimes, systems, AI models, and infrastructure. Filter by domain to highlight elements.
+              </p>
             </div>
-            <div class="dna-board" id="dna-board"></div>
-            <div class="tech-panel" id="tech-panel" aria-live="polite"></div>
+
+            <!-- Periodic Table Filter Controls -->
+            <div class="tech-filter-bar" id="tech-filter-bar">
+              <button class="tech-filter-btn is-active" data-tech-filter="ALL" type="button">ALL [26]</button>
+              <button class="tech-filter-btn" data-tech-filter="LANGUAGES" type="button">LANGUAGES</button>
+              <button class="tech-filter-btn" data-tech-filter="FRONTEND" type="button">FRONTEND</button>
+              <button class="tech-filter-btn" data-tech-filter="BACKEND" type="button">BACKEND</button>
+              <button class="tech-filter-btn" data-tech-filter="AI_ML" type="button">AI & ML</button>
+              <button class="tech-filter-btn" data-tech-filter="CLOUD_DEVOPS" type="button">CLOUD & DEVOPS</button>
+              <button class="tech-filter-btn" data-tech-filter="DATABASES" type="button">DATABASES</button>
+            </div>
+
+            <!-- Chemical Element Grid -->
+            <div class="periodic-tech-grid" id="periodic-tech-grid">
+              <!-- Rendered via main.js with all 26 elements -->
+            </div>
+
+            <!-- Interactive Element Inspector Tooltip/Drawer -->
+            <div class="element-inspector-panel" id="element-inspector-panel" aria-live="polite">
+              <div class="inspector-empty">Hover or click any element tile above to inspect production usage and architectural role.</div>
+            </div>
           </section>
 
           <!-- 05 LAB CHAPTER -->

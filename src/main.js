@@ -1,3 +1,4 @@
+import './style.css';
 import portfolioData from './data/portfolio.json';
 
 const $ = (selector, context = document) => context.querySelector(selector);
@@ -14,16 +15,194 @@ const cleanText = (str = '') =>
     .replaceAll('Ã—', '×')
     .replaceAll('Â©', '©');
 
+/* -------------------------------------------------------------
+   00. Sensory UI: Tactile Audio Synthesizer & Haptics (Web Audio API)
+------------------------------------------------------------- */
+class TactileAudioEngine {
+  constructor() {
+    this.ctx = null;
+    this.isMuted = localStorage.getItem('piyush_audio_muted') === 'true';
+  }
+
+  initContext() {
+    if (!this.ctx && typeof window !== 'undefined') {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) {
+        this.ctx = new AudioCtx();
+      }
+    }
+    if (this.ctx && this.ctx.state === 'suspended') {
+      this.ctx.resume().catch(() => {});
+    }
+  }
+
+  toggleSound() {
+    this.initContext();
+    this.isMuted = !this.isMuted;
+    localStorage.setItem('piyush_audio_muted', String(this.isMuted));
+    this.updateSoundUi();
+    if (!this.isMuted) {
+      this.playClick();
+    }
+    this.triggerHaptic(10);
+    return !this.isMuted;
+  }
+
+  updateSoundUi() {
+    const icon = $('#sound-icon');
+    const label = $('#sound-label');
+    const heroBtn = $('#hero-sound-toggle');
+    const heroText = $('.hero-sound-text');
+    const heroDot = $('.sound-status-dot');
+
+    if (this.isMuted) {
+      if (icon) icon.textContent = '🔇';
+      if (label) label.textContent = 'MUTED';
+      if (heroText) heroText.textContent = 'AUDIO OFF';
+      if (heroDot) heroDot.classList.add('is-muted');
+    } else {
+      if (icon) icon.textContent = '🔊';
+      if (label) label.textContent = 'SOUND';
+      if (heroText) heroText.textContent = 'AUDIO ON';
+      if (heroDot) heroDot.classList.remove('is-muted');
+    }
+  }
+
+  playClick() {
+    if (this.isMuted) return;
+    this.initContext();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      const filter = this.ctx.createBiquadFilter();
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(1400, now);
+      osc.frequency.exponentialRampToValueAtTime(320, now + 0.015);
+
+      filter.type = 'highpass';
+      filter.frequency.setValueAtTime(800, now);
+
+      gain.gain.setValueAtTime(0.045, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.02);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.025);
+    } catch {
+      // Audio fallback silent
+    }
+  }
+
+  playWhoosh() {
+    if (this.isMuted) return;
+    this.initContext();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      const filter = this.ctx.createBiquadFilter();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(280, now);
+      osc.frequency.exponentialRampToValueAtTime(60, now + 0.16);
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(450, now);
+
+      gain.gain.setValueAtTime(0.08, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.2);
+    } catch {
+      // Audio fallback silent
+    }
+  }
+
+  playTick() {
+    if (this.isMuted) return;
+    this.initContext();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(880, now);
+      gain.gain.setValueAtTime(0.012, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.008);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.01);
+    } catch {}
+  }
+
+  playChime() {
+    if (this.isMuted) return;
+    this.initContext();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      [523.25, 659.25, 783.99].forEach((freq, i) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + i * 0.04);
+        gain.gain.setValueAtTime(0.035, now + i * 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.0005, now + i * 0.04 + 0.35);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now + i * 0.04);
+        osc.stop(now + i * 0.04 + 0.38);
+      });
+    } catch {}
+  }
+
+  triggerHaptic(duration = 10) {
+    if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+      try {
+        navigator.vibrate(duration);
+      } catch {}
+    }
+  }
+}
+
+const audio = new TactileAudioEngine();
+
 let deferredInstallPrompt = null;
 let reelAnimFrameId = null;
 let isReelPaused = false;
-let reelSpeed = 0.55; // Pixels per frame
+let reelSpeed = 0.55;
 
 document.addEventListener('DOMContentLoaded', () => {
+  audio.updateSoundUi();
+  initSoundToggles();
   initProfileData();
+  initDevBadge();
+  initBentoMetrics();
   initHorizontalProjectReel();
   initExperienceSection();
-  initTechnicalUniverse('Frontend');
+  initPeriodicTechMatrix();
   initLabSection();
   initContactSection();
   initPortraitInteraction();
@@ -34,10 +213,44 @@ document.addEventListener('DOMContentLoaded', () => {
   initCommandPalette();
   initOfflineBanner();
   initServiceWorker();
+  initInteractiveAudioListeners();
 });
 
 /* -------------------------------------------------------------
-   01. Profile & Academic Foundations
+   01. Sound Toggles & Interactive Listeners
+------------------------------------------------------------- */
+function initSoundToggles() {
+  const topBtn = $('#sound-toggle-btn');
+  const heroBtn = $('#hero-sound-toggle');
+
+  const handleToggle = () => audio.toggleSound();
+
+  if (topBtn) topBtn.addEventListener('click', handleToggle);
+  if (heroBtn) heroBtn.addEventListener('click', handleToggle);
+
+  // Resume AudioContext on first interaction
+  const resumeFirstGesture = () => {
+    audio.initContext();
+    window.removeEventListener('pointerdown', resumeFirstGesture);
+    window.removeEventListener('keydown', resumeFirstGesture);
+  };
+  window.addEventListener('pointerdown', resumeFirstGesture, { once: true });
+  window.addEventListener('keydown', resumeFirstGesture, { once: true });
+}
+
+function initInteractiveAudioListeners() {
+  // Bind click sounds to interactive controls
+  document.addEventListener('click', (e) => {
+    const interactive = e.target.closest('button, .nav-link, .contact-pill-btn, .action-btn, .tech-filter-btn, .tech-element-card');
+    if (interactive && !interactive.id?.includes('sound-toggle')) {
+      audio.playClick();
+      audio.triggerHaptic(10);
+    }
+  });
+}
+
+/* -------------------------------------------------------------
+   02. Profile Facts
 ------------------------------------------------------------- */
 function initProfileData() {
   const { profile, education } = portfolioData;
@@ -64,7 +277,279 @@ function initProfileData() {
 }
 
 /* -------------------------------------------------------------
-   02. Horizontal Project Showcase with Auto-Glide & Drag
+   03. 3D Gyroscope Developer ID Badge Component (<app-dev-badge>)
+------------------------------------------------------------- */
+function initDevBadge() {
+  const badge = $('#dev-id-badge');
+  const glare = $('#badge-glare');
+  const portraitTrigger = $('#badge-portrait-trigger');
+  if (!badge) return;
+
+  let rotateX = 0;
+  let rotateY = 0;
+  let isInteracting = false;
+
+  const applyTilt = (rx, ry, gx = 50, gy = 50) => {
+    badge.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    if (glare) {
+      glare.style.opacity = isInteracting ? '1' : '0';
+      glare.style.background = `radial-gradient(circle at ${gx}% ${gy}%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 65%)`;
+    }
+  };
+
+  // Desktop Mouse Movement
+  badge.addEventListener('mousemove', (e) => {
+    isInteracting = true;
+    badge.classList.add('is-interacting');
+    const rect = badge.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    rotateX = ((y - centerY) / centerY) * -14;
+    rotateY = ((x - centerX) / centerX) * 14;
+
+    const gx = (x / rect.width) * 100;
+    const gy = (y / rect.height) * 100;
+
+    applyTilt(rotateX, rotateY, gx, gy);
+  });
+
+  badge.addEventListener('mouseleave', () => {
+    isInteracting = false;
+    badge.classList.remove('is-interacting');
+    badge.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+    applyTilt(0, 0);
+    setTimeout(() => {
+      badge.style.transition = 'transform 0.12s ease-out';
+    }, 400);
+  });
+
+  // Mobile DeviceOrientation Gyroscope API
+  const handleOrientation = (e) => {
+    if (e.beta === null || e.gamma === null) return;
+    const maxTilt = 15;
+    const baseViewingAngle = 40;
+    const beta = Math.max(-maxTilt, Math.min(maxTilt, e.beta - baseViewingAngle));
+    const gamma = Math.max(-maxTilt, Math.min(maxTilt, e.gamma));
+
+    isInteracting = true;
+    badge.classList.add('is-interacting');
+    const gx = 50 + gamma * 2.2;
+    const gy = 50 + beta * 2.2;
+    applyTilt(-beta, gamma, gx, gy);
+  };
+
+  if (typeof window !== 'undefined' && 'DeviceOrientationEvent' in window) {
+    window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+  }
+
+  // Portrait Tap / Click toggle reveal
+  if (portraitTrigger) {
+    portraitTrigger.addEventListener('click', () => {
+      badge.classList.toggle('is-interacting');
+      audio.playClick();
+    });
+  }
+}
+
+/* -------------------------------------------------------------
+   04. Bento Metric Grid (<app-metric-bento>) with Counting Animations
+------------------------------------------------------------- */
+function initBentoMetrics() {
+  const grid = $('#bento-metric-grid');
+  if (!grid) return;
+
+  let hasAnimated = false;
+
+  const animateCounters = () => {
+    if (hasAnimated) return;
+    hasAnimated = true;
+    audio.playWhoosh();
+
+    const counters = $$('.bento-number', grid);
+    counters.forEach((el) => {
+      const target = parseFloat(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const decimals = parseInt(el.dataset.decimals || '0', 10);
+      const duration = 1600; // ms
+      const startTime = performance.now();
+
+      function update(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        // EaseOutExpo
+        const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        const current = (target * ease).toFixed(decimals);
+
+        el.textContent = `${current}${suffix}`;
+
+        if (progress < 1) {
+          if (Math.random() < 0.25) audio.playTick();
+          requestAnimationFrame(update);
+        } else {
+          el.textContent = `${target.toFixed(decimals)}${suffix}`;
+        }
+      }
+
+      requestAnimationFrame(update);
+    });
+
+    setTimeout(() => {
+      audio.playChime();
+    }, 1650);
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounters();
+          observer.disconnect();
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  observer.observe(grid);
+}
+
+/* -------------------------------------------------------------
+   05. Periodic Table of Tech (<app-tech-matrix>)
+------------------------------------------------------------- */
+const periodicElements = [
+  // Languages
+  { num: 1, sym: 'Js', name: 'JavaScript', cat: 'LANGUAGES', weight: 'ES2024', role: 'Full-stack runtime, asynchronous event loops, browser APIs.', projects: ['OneOps', 'Robo App', 'Portfolio Core'] },
+  { num: 2, sym: 'Ts', name: 'TypeScript', cat: 'LANGUAGES', weight: '5.x', role: 'Strict-mode type system, structural schema safety, interfaces.', projects: ['OneMeal', 'OneFlux', 'OneGaurd'] },
+  { num: 3, sym: 'Py', name: 'Python', cat: 'LANGUAGES', weight: '3.11', role: 'Machine learning model pipelines, OpenCV, tensor transformations.', projects: ['AI Stroke Detection'] },
+  { num: 4, sym: 'Jv', name: 'Java', cat: 'LANGUAGES', weight: '17', role: 'Object-oriented patterns, algorithm optimization, core systems.', projects: ['Academic Systems'] },
+  { num: 5, sym: 'Sq', name: 'SQL', cat: 'LANGUAGES', weight: 'ANSI', role: 'Relational database schemas, indexing, complex query execution.', projects: ['OneMeal', 'MCMH Production'] },
+
+  // Frontend
+  { num: 6, sym: 'Re', name: 'React.js', cat: 'FRONTEND', weight: '18.x', role: 'Component hierarchy, concurrent rendering, custom hooks.', projects: ['TechOrbit', 'OneMeal', 'AI Stroke'] },
+  { num: 7, sym: 'Vt', name: 'Vite', cat: 'FRONTEND', weight: 'ESM', role: 'Sub-second HMR bundler, Rollup build trees, asset optimization.', projects: ['TechOrbit', 'Portfolio Core'] },
+  { num: 8, sym: 'Tw', name: 'Tailwind CSS', cat: 'FRONTEND', weight: '3.x', role: 'Utility-first layout grids, rapid aesthetic composition.', projects: ['TechOrbit', 'OneMeal'] },
+  { num: 9, sym: 'Cs', name: 'CSS3 / Vanilla', cat: 'FRONTEND', weight: 'Modern', role: 'Custom properties, 3D perspective transforms, hardware acceleration.', projects: ['Portfolio Core'] },
+  { num: 10, sym: 'Lf', name: 'Leaflet GIS', cat: 'FRONTEND', weight: 'Geo', role: 'Interactive geospatial tiles, polyline simplification, crisis routing.', projects: ['TechOrbit', 'OneTravel'] },
+
+  // Backend
+  { num: 11, sym: 'Nd', name: 'Node.js', cat: 'BACKEND', weight: '22.x', role: 'Event-driven I/O, child processes, hardware telemetry ingestion.', projects: ['OneOps', 'AI Stroke Gateway'] },
+  { num: 12, sym: 'Ex', name: 'Express.js', cat: 'BACKEND', weight: '4.x', role: 'RESTful API routing, streaming middleware, CORS contracts.', projects: ['AI Stroke Detection'] },
+  { num: 13, sym: 'Ap', name: 'REST APIs', cat: 'BACKEND', weight: 'HTTP/2', role: 'Stateless endpoints, defensive schema validation, idempotent verbs.', projects: ['OneOps', 'TechOrbit'] },
+  { num: 14, sym: 'Jw', name: 'JWT Auth', cat: 'BACKEND', weight: 'OAuth', role: 'Cryptographic bearer tokens, RBAC claims, session revocation.', projects: ['AI Stroke Detection', 'MCMH'] },
+
+  // AI & ML
+  { num: 15, sym: 'Tf', name: 'TensorFlow', cat: 'AI_ML', weight: 'Keras', role: 'Deep learning CNN convolutions, medical scan segmentation.', projects: ['AI Stroke Detection'] },
+  { num: 16, sym: 'Ge', name: 'Gemini Vision', cat: 'AI_ML', weight: 'Multimodal', role: 'Multimodal image inspection, prompt orchestration, automated grading.', projects: ['OneMeal'] },
+  { num: 17, sym: 'Cv', name: 'OpenCV', cat: 'AI_ML', weight: 'Vision', role: 'DICOM windowing, CT slice contrast enhancement, contour maps.', projects: ['AI Stroke Detection'] },
+
+  // Cloud & DevOps
+  { num: 18, sym: 'Dk', name: 'Docker', cat: 'CLOUD_DEVOPS', weight: 'Containers', role: 'Isolated runtime sandboxes, automated PR verification containers.', projects: ['OneOps', 'AI Stroke Detection'] },
+  { num: 19, sym: 'Aw', name: 'AWS Cloud', cat: 'CLOUD_DEVOPS', weight: 'Cloud', role: 'EC2 instances, S3 object storage, secure IAM boundary policies.', projects: ['Production Infrastructure'] },
+  { num: 20, sym: 'Lx', name: 'Linux Shell', cat: 'CLOUD_DEVOPS', weight: 'Bash', role: 'Daemon logs, POSIX system calls, hardware serial bus diagnostics.', projects: ['OneOps', 'Robo App'] },
+  { num: 21, sym: 'Gt', name: 'Git & GitHub', cat: 'CLOUD_DEVOPS', weight: 'VCS', role: 'Source tree automation, blame inspection, branching workflows.', projects: ['All 9 Repositories'] },
+  { num: 22, sym: 'Ci', name: 'CI/CD Pipelines', cat: 'CLOUD_DEVOPS', weight: 'Actions', role: 'Automated test runners, build gates, edge deployment dispatch.', projects: ['TechOrbit', 'Portfolio Core'] },
+
+  // Databases
+  { num: 23, sym: 'Pg', name: 'PostgreSQL', cat: 'DATABASES', weight: 'Relational', role: 'ACID transactions, relational joins, complex query execution.', projects: ['MCMH Production'] },
+  { num: 24, sym: 'Sb', name: 'Supabase', cat: 'DATABASES', weight: 'BaaS', role: 'Postgres row-level security, realtime subscriptions, edge functions.', projects: ['MCMH SDE Internship'] },
+  { num: 25, sym: 'Mg', name: 'MongoDB', cat: 'DATABASES', weight: 'NoSQL', role: 'Document store, hospital audit log records, indexing.', projects: ['AI Stroke Detection'] },
+  { num: 26, sym: 'Fs', name: 'Cloud Firestore', cat: 'DATABASES', weight: 'Realtime', role: 'Live document sync, offline client persistence, optimistic UI.', projects: ['OneMeal'] }
+];
+
+function initPeriodicTechMatrix() {
+  const grid = $('#periodic-tech-grid');
+  const filterBar = $('#tech-filter-bar');
+  const panel = $('#element-inspector-panel');
+  if (!grid || !filterBar) return;
+
+  let activeFilter = 'ALL';
+
+  function renderGrid() {
+    grid.innerHTML = periodicElements
+      .map((elem) => {
+        const isDimmed = activeFilter !== 'ALL' && elem.cat !== activeFilter;
+        return `
+        <button 
+          type="button" 
+          class="tech-element-card ${isDimmed ? 'is-dimmed' : ''}" 
+          data-element-num="${elem.num}"
+          data-cat="${elem.cat}"
+          aria-label="${elem.name} (${elem.sym})">
+          <div class="elem-top-row">
+            <span class="elem-num">${elem.num}</span>
+            <span class="elem-weight">${elem.weight}</span>
+          </div>
+          <span class="elem-sym">${elem.sym}</span>
+          <span class="elem-name">${elem.name}</span>
+          <span class="elem-cat">${elem.cat.replace('_', ' ')}</span>
+        </button>`;
+      })
+      .join('');
+  }
+
+  function showInspector(num) {
+    const elem = periodicElements.find((e) => e.num === num);
+    if (!elem || !panel) return;
+
+    panel.innerHTML = `
+      <div class="inspector-content">
+        <div class="inspector-symbol-box">
+          <span class="inspector-num">${elem.num}</span>
+          <span class="inspector-sym">${elem.sym}</span>
+        </div>
+        <div>
+          <h3 class="inspector-name">${elem.name}</h3>
+          <span class="inspector-category">${elem.cat.replace('_', ' ')} · ${elem.weight}</span>
+          <p class="inspector-usage">${elem.role}</p>
+        </div>
+        <div class="inspector-projects">
+          <span class="inspector-proj-title">EVIDENCE IN PRODUCTION</span>
+          <div class="inspector-proj-tags">
+            ${elem.projects.map((p) => `<span class="tech-chip">${p}</span>`).join('')}
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // Filter Buttons
+  filterBar.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-tech-filter]');
+    if (!btn) return;
+    activeFilter = btn.dataset.techFilter;
+    $$('.tech-filter-btn', filterBar).forEach((b) => b.classList.toggle('is-active', b === btn));
+    renderGrid();
+    audio.playClick();
+    audio.triggerHaptic(10);
+  });
+
+  // Element Clicks / Hover
+  grid.addEventListener('click', (e) => {
+    const card = e.target.closest('[data-element-num]');
+    if (!card) return;
+    const num = parseInt(card.dataset.elementNum, 10);
+    $$('.tech-element-card', grid).forEach((c) => c.classList.remove('is-active'));
+    card.classList.add('is-active');
+    showInspector(num);
+    audio.playClick();
+  });
+
+  grid.addEventListener('mouseover', (e) => {
+    const card = e.target.closest('[data-element-num]');
+    if (!card) return;
+    const num = parseInt(card.dataset.elementNum, 10);
+    showInspector(num);
+  });
+
+  renderGrid();
+  // Show default initial inspector
+  showInspector(1);
+}
+
+/* -------------------------------------------------------------
+   06. Horizontal Project Showcase with Auto-Glide, Drag & Audio
 ------------------------------------------------------------- */
 function initHorizontalProjectReel() {
   const track = $('#horizontal-reel-track');
@@ -126,11 +611,10 @@ function initHorizontalProjectReel() {
     })
     .join('');
 
-  // Auto-gliding engine via requestAnimationFrame
+  // Continuous auto-glide engine
   function glideStep() {
     if (!isReelPaused && container) {
       container.scrollLeft += reelSpeed;
-      // Loop seamlessly when near end
       const maxScroll = container.scrollWidth - container.clientWidth;
       if (container.scrollLeft >= maxScroll - 2) {
         container.scrollLeft = 0;
@@ -152,26 +636,27 @@ function initHorizontalProjectReel() {
     if (statusDot) statusDot.classList.remove('is-paused');
   });
 
-  // Manual Prev / Next arrow buttons
+  // Manual Prev / Next arrows
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
+      audio.playWhoosh();
       container.scrollBy({ left: -420, behavior: 'smooth' });
     });
   }
 
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
+      audio.playWhoosh();
       container.scrollBy({ left: 420, behavior: 'smooth' });
     });
   }
 
-  // Mouse drag-to-scroll implementation
+  // Mouse drag-to-scroll
   let isDragging = false;
   let startX = 0;
   let startScrollLeft = 0;
 
   container.addEventListener('mousedown', (e) => {
-    // Avoid interfering with buttons or links
     if (e.target.closest('button, a')) return;
     isDragging = true;
     isReelPaused = true;
@@ -195,14 +680,13 @@ function initHorizontalProjectReel() {
     container.scrollLeft = startScrollLeft - walk;
   });
 
-  // Start continuous gliding
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     reelAnimFrameId = requestAnimationFrame(glideStep);
   }
 }
 
 /* -------------------------------------------------------------
-   03. Experience Timeline
+   07. Experience Timeline
 ------------------------------------------------------------- */
 function initExperienceSection() {
   const container = $('#experience-list');
@@ -230,62 +714,18 @@ function initExperienceSection() {
     )
     .join('');
 
-  // Accordion toggle
   container.addEventListener('click', (e) => {
     const trigger = e.target.closest('.timeline-trigger');
     if (!trigger) return;
     const parent = trigger.closest('.timeline-item');
     const isNowOpen = parent.classList.toggle('open');
     trigger.setAttribute('aria-expanded', String(isNowOpen));
+    audio.playClick();
   });
 }
 
 /* -------------------------------------------------------------
-   04. Technical Universe (DNA Board)
-------------------------------------------------------------- */
-function initTechnicalUniverse(activeCategory = 'Frontend') {
-  const categories = portfolioData.technicalUniverse.categories;
-  const board = $('#dna-board');
-  const panel = $('#tech-panel');
-  if (!board || !panel) return;
-
-  const current = categories.find((c) => c.name.toLowerCase().includes(activeCategory.toLowerCase())) || categories[0];
-
-  board.innerHTML = categories
-    .map(
-      (cat) => `
-    <button type="button" class="dna-category-btn ${cat.name === current.name ? 'is-active' : ''}" data-category-name="${cat.name}">
-      <span class="dna-cat-title">${cleanText(cat.name)}</span>
-      <small class="dna-cat-count">${cat.skills.length} tools</small>
-    </button>`
-    )
-    .join('');
-
-  panel.innerHTML = `
-    <div class="tech-panel-header">
-      <span class="eyebrow">${cleanText(current.name).toUpperCase()} ARCHITECTURE</span>
-    </div>
-    <div class="tech-grid">
-      ${current.skills
-        .map(
-          (skill) => `
-        <div class="tech-card">
-          <span class="tech-card-title">${cleanText(skill)}</span>
-        </div>`
-        )
-        .join('')}
-    </div>`;
-
-  board.onclick = (e) => {
-    const btn = e.target.closest('[data-category-name]');
-    if (btn) {
-      initTechnicalUniverse(btn.dataset.categoryName);
-    }
-  };
-}
-
-/* -------------------------------------------------------------
-   05. The Lab Builds
+   08. The Lab Builds
 ------------------------------------------------------------- */
 function initLabSection() {
   const container = $('#lab-list');
@@ -311,7 +751,7 @@ function initLabSection() {
 }
 
 /* -------------------------------------------------------------
-   06. Contact Section
+   09. Contact Section
 ------------------------------------------------------------- */
 function initContactSection() {
   const { profile } = portfolioData;
@@ -337,7 +777,7 @@ function initContactSection() {
 }
 
 /* -------------------------------------------------------------
-   07. First Viewport Portrait & Parallax
+   10. First Viewport Portrait & Parallax
 ------------------------------------------------------------- */
 function initPortraitInteraction() {
   const portraitBtn = $('#portrait-trigger');
@@ -350,10 +790,10 @@ function initPortraitInteraction() {
   if (portraitBtn) {
     portraitBtn.addEventListener('click', () => {
       portraitBtn.classList.toggle('is-color');
+      audio.playClick();
     });
   }
 
-  // Subtle interactive cursor parallax
   if (
     hero &&
     portrait &&
@@ -387,7 +827,7 @@ function initPortraitInteraction() {
 }
 
 /* -------------------------------------------------------------
-   08. Case Study Modal & Legal Modals
+   11. Case Study Modal & Legal Dialogs
 ------------------------------------------------------------- */
 function initDialogHandlers() {
   const caseDialog = $('#case-dialog');
@@ -402,7 +842,6 @@ function initDialogHandlers() {
   const termsOpen = $('#open-terms-btn');
   const termsClose = $('#terms-close');
 
-  // Generic close click on backdrop
   $$('dialog').forEach((dialog) => {
     dialog.addEventListener('click', (e) => {
       if (e.target === dialog) dialog.close();
@@ -413,13 +852,15 @@ function initDialogHandlers() {
     caseClose.addEventListener('click', () => caseDialog.close());
   }
 
-  // Open case study from cards
+  // Open Case Study Modal
   document.addEventListener('click', (e) => {
     const trigger = e.target.closest('[data-open-case]');
     if (!trigger) return;
     const projectId = trigger.dataset.openCase;
     const project = portfolioData.projects.find((p) => p.id === projectId);
     if (!project || !caseDialog || !caseContent) return;
+
+    audio.playWhoosh();
 
     caseContent.innerHTML = `
       <div class="case-modal-header">
@@ -496,7 +937,6 @@ function initDialogHandlers() {
     caseDialog.showModal();
   });
 
-  // Privacy Dialog
   if (privacyOpen && privacyDialog) {
     privacyOpen.addEventListener('click', () => privacyDialog.showModal());
   }
@@ -504,7 +944,6 @@ function initDialogHandlers() {
     privacyClose.addEventListener('click', () => privacyDialog.close());
   }
 
-  // Terms Dialog
   if (termsOpen && termsDialog) {
     termsOpen.addEventListener('click', () => termsDialog.showModal());
   }
@@ -514,7 +953,7 @@ function initDialogHandlers() {
 }
 
 /* -------------------------------------------------------------
-   09. Command Palette (⌘K)
+   12. Command Palette (⌘K) & Prezi-Style Camera Navigation
 ------------------------------------------------------------- */
 function initCommandPalette() {
   const dialog = $('#command-dialog');
@@ -526,12 +965,14 @@ function initCommandPalette() {
   if (!dialog || !input || !list) return;
 
   const entries = [
-    { label: '01 · About Piyush', target: '#about', type: 'section' },
-    { label: '02 · Selected Work', target: '#work', type: 'section' },
-    { label: '03 · Production Experience', target: '#experience', type: 'section' },
-    { label: '04 · Technical Universe', target: '#stack', type: 'section' },
-    { label: '05 · The Lab Repositories', target: '#lab', type: 'section' },
-    { label: '06 · Contact & Dispatch', target: '#contact', type: 'section' },
+    { label: '01 · Professional Identity (About)', target: '#about', type: 'section' },
+    { label: '02 · Verified Milestones (Metrics)', target: '#metrics', type: 'section' },
+    { label: '03 · Selected Work (Priority Projects)', target: '#work', type: 'section' },
+    { label: '04 · Production Practice (Experience)', target: '#experience', type: 'section' },
+    { label: '05 · Periodic Table of Tech (Stack)', target: '#stack', type: 'section' },
+    { label: '06 · The Lab (Repositories)', target: '#lab', type: 'section' },
+    { label: '07 · Contact & Dispatch', target: '#contact', type: 'section' },
+    { label: 'Audio Toggle (Mute / Unmute)', target: 'action:audio', type: 'action' },
     { label: 'Resume (PDF)', target: '/assets/resume/Piyush_Sonawane_Resume.pdf', type: 'external' },
     { label: 'Privacy Policy', target: 'action:privacy', type: 'action' },
     { label: 'Terms & Conditions', target: 'action:terms', type: 'action' },
@@ -558,6 +999,7 @@ function initCommandPalette() {
   }
 
   function openPalette() {
+    audio.playWhoosh();
     input.value = '';
     renderMatches('');
     dialog.showModal();
@@ -578,7 +1020,10 @@ function initCommandPalette() {
     }
   });
 
-  input.addEventListener('input', () => renderMatches(input.value));
+  input.addEventListener('input', () => {
+    audio.playTick();
+    renderMatches(input.value);
+  });
 
   list.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-target]');
@@ -587,8 +1032,9 @@ function initCommandPalette() {
     dialog.close();
 
     if (target.startsWith('#')) {
-      const el = $(target);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      triggerSpatialFlight(target);
+    } else if (target === 'action:audio') {
+      audio.toggleSound();
     } else if (target.startsWith('case:')) {
       const projId = target.replace('case:', '');
       const opener = $(`[data-open-case="${projId}"]`);
@@ -603,8 +1049,34 @@ function initCommandPalette() {
   });
 }
 
+// Prezi-style spatial camera flight effect between sections
+function triggerSpatialFlight(targetSelector) {
+  const el = $(targetSelector);
+  const stage = $('.stage');
+  if (!el) return;
+
+  audio.playWhoosh();
+  audio.triggerHaptic(15);
+
+  if (stage && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    stage.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+    stage.style.transform = 'scale(0.985) translate3d(0, -4px, 0)';
+
+    el.scrollIntoView({ behavior: 'smooth' });
+
+    setTimeout(() => {
+      stage.style.transform = 'none';
+      setTimeout(() => {
+        stage.style.transition = '';
+      }, 450);
+    }, 450);
+  } else {
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
 /* -------------------------------------------------------------
-   10. PWA Installation
+   13. PWA Installation
 ------------------------------------------------------------- */
 function initPwaInstall() {
   const installBtn = $('#install-app-btn');
@@ -622,6 +1094,8 @@ function initPwaInstall() {
     const { outcome } = await deferredInstallPrompt.userChoice;
     if (outcome === 'accepted') {
       installBtn.style.display = 'none';
+      audio.playChime();
+      audio.triggerHaptic([10, 30, 10]);
     }
     deferredInstallPrompt = null;
   });
@@ -633,11 +1107,22 @@ function initPwaInstall() {
 }
 
 /* -------------------------------------------------------------
-   11. Navigation Spy & Sticky Highlighting
+   14. Navigation Spy & Sticky Highlighting
 ------------------------------------------------------------- */
 function initNavigationHighlighting() {
   const sections = $$('[data-section]');
   const navLinks = $$('.section-nav .nav-link, .mobile-nav a');
+
+  // Intercept section nav clicks for spatial flight
+  navLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const hash = link.getAttribute('href');
+      if (hash && hash.startsWith('#')) {
+        e.preventDefault();
+        triggerSpatialFlight(hash);
+      }
+    });
+  });
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -674,7 +1159,7 @@ function initScrollHeader() {
 }
 
 /* -------------------------------------------------------------
-   12. Offline Banner & Service Worker
+   15. Offline Banner & Service Worker
 ------------------------------------------------------------- */
 function initOfflineBanner() {
   const banner = $('#offline-banner');
