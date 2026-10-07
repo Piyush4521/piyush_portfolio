@@ -1097,12 +1097,222 @@ img {
 }
 
 /* -------------------------------------------------------------
-   03. Experience Timeline
+/* -------------------------------------------------------------
+   03. Experience Timeline & SDE Telemetry Grid
 ------------------------------------------------------------- */
+.experience-split-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  align-items: start;
+  gap: clamp(36px, 5vw, 64px);
+  margin-top: 32px;
+}
+
+.experience-timeline-col {
+  width: 100%;
+}
+
+.production-telemetry-card {
+  background: linear-gradient(145deg, #ffffff, #faf9f5);
+  border: 2px solid transparent;
+  background: linear-gradient(#ffffff, #faf9f5) padding-box,
+              linear-gradient(135deg, #6366f1, #06b6d4, #10b981) border-box;
+  border-radius: 20px;
+  padding: 28px 24px 24px;
+  box-shadow: 0 16px 40px rgba(99, 102, 241, 0.1), 0 4px 16px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.production-telemetry-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 50px rgba(99, 102, 241, 0.18), 0 0 32px rgba(6, 182, 212, 0.15);
+}
+
+.telemetry-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.telemetry-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.telemetry-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulseDot 2s infinite;
+}
+
+.telemetry-status-label {
+  font: 0.65rem var(--font-mono);
+  font-weight: 700;
+  color: #065f46;
+  letter-spacing: 0.08em;
+}
+
+.telemetry-runtime-tag {
+  font: 0.66rem var(--font-mono);
+  color: #64748b;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.telemetry-card-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+}
+
+.telemetry-card-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #475569;
+  margin: 0 0 20px 0;
+}
+
+.telemetry-metrics-matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.telemetry-stat-tile {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+}
+
+.telemetry-stat-tile:hover {
+  border-color: #6366f1;
+  background: #f8fafc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08);
+}
+
+.stat-highlight-val {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #4f46e5;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.stat-highlight-lbl {
+  font: 0.58rem var(--font-mono);
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.06em;
+}
+
+.telemetry-pipeline-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 22px;
+}
+
+.pipeline-heading {
+  display: block;
+  font: 0.62rem var(--font-mono);
+  font-weight: 700;
+  color: #475569;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.pipeline-step-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.flow-step {
+  font: 0.68rem var(--font-mono);
+  font-weight: 600;
+  color: #1e293b;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 3px 8px;
+}
+
+.flow-sep {
+  color: #94a3b8;
+  font-size: 0.75rem;
+}
+
+.telemetry-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.telemetry-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  font: 0.72rem var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.telemetry-action-btn.btn-primary {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: #ffffff;
+  border: 1px solid #4f46e5;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+}
+
+.telemetry-action-btn.btn-primary:hover {
+  background: #4338ca;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+}
+
+.telemetry-action-btn.btn-secondary {
+  background: #ffffff;
+  color: #0f172a;
+  border: 1.5px solid #cbd5e1;
+}
+
+.telemetry-action-btn.btn-secondary:hover {
+  background: #f1f5f9;
+  border-color: #0f172a;
+  transform: translateY(-2px);
+}
+
 .timeline {
   border-left: 2px solid var(--ink);
-  max-width: 860px;
-  margin-top: 32px;
+  max-width: 100%;
+  margin-top: 12px;
   padding-left: 32px;
 }
 
@@ -2301,99 +2511,214 @@ dialog::backdrop {
   margin-bottom: 24px;
 }
 
-.tech-element-card {
+/* 3D Mechanical Watch-Flip Tech Element Card */
+.tech-flip-card {
+  perspective: 1000px;
   aspect-ratio: 1;
-  background: #ffffff;
-  border: 1.5px solid #dcd9ce;
-  border-radius: 8px;
+  cursor: pointer;
+  border-radius: 12px;
+  position: relative;
+  transition: transform 0.25s var(--ease);
+  outline: none;
+}
+
+.tech-flip-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  z-index: 5;
+}
+
+.tech-flip-card.is-dimmed {
+  opacity: 0.22;
+  filter: grayscale(1);
+  transform: scale(0.96);
+  pointer-events: none;
+}
+
+.tech-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.34, 1.4, 0.64, 1);
+  border-radius: 12px;
+}
+
+/* Mechanical Watch-Flip Effect: 180deg flip */
+.tech-flip-card.is-flipped .tech-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.tech-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 12px;
   padding: 10px 10px 8px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  cursor: pointer;
+  border: 1.5px solid #dcd9ce;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Front Face: Periodic Chemical Symbol */
+.tech-face-front {
+  transform: rotateY(0deg);
+}
+
+/* Back Face: Watch-Dial Tech Logo Face */
+.tech-face-back {
+  transform: rotateY(180deg);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8px 6px;
+  gap: 4px;
   position: relative;
-  transition: all 0.25s var(--ease);
+  overflow: hidden;
+  background: linear-gradient(145deg, #ffffff, #faf9f6);
 }
 
-.tech-element-card:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+/* Mechanical Watch Dial Accents */
+.watch-gear-notch {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 2px;
+  background: #cbd5e1;
+  border-radius: 2px;
 }
 
-.tech-element-card.is-dimmed {
-  opacity: 0.2;
-  filter: grayscale(1);
-  transform: scale(0.97);
+.tech-logo-svg-wrap {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+  transition: transform 0.3s var(--ease);
 }
 
-.tech-element-card.is-active {
-  border-width: 2px;
-  box-shadow: 0 0 16px rgba(99, 102, 241, 0.3);
+.tech-flip-card:hover .tech-logo-svg-wrap {
+  transform: scale(1.15);
 }
 
-/* Category Color Coding */
-.tech-element-card[data-cat="LANGUAGES"] {
-  border-color: rgba(245, 158, 11, 0.4);
+.tech-back-name {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 95%;
+  line-height: 1.1;
+}
+
+.tech-back-pill {
+  font: 0.54rem var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 999px;
+  margin-top: 2px;
+}
+
+/* Category Color Coding across both Front and Back Faces */
+.tech-flip-card[data-cat="LANGUAGES"] .tech-face {
+  border-color: rgba(245, 158, 11, 0.45);
   background: #fffdf5;
 }
-.tech-element-card[data-cat="LANGUAGES"] .elem-sym { color: #d97706; }
-.tech-element-card[data-cat="LANGUAGES"] .elem-cat { color: #b45309; }
-.tech-element-card[data-cat="LANGUAGES"]:hover {
+.tech-flip-card[data-cat="LANGUAGES"] .elem-sym { color: #d97706; }
+.tech-flip-card[data-cat="LANGUAGES"] .elem-cat { color: #b45309; }
+.tech-flip-card[data-cat="LANGUAGES"] .tech-back-pill {
+  background: rgba(245, 158, 11, 0.15);
+  color: #b45309;
+}
+.tech-flip-card[data-cat="LANGUAGES"]:hover .tech-face {
   border-color: #f59e0b;
   box-shadow: 0 8px 24px rgba(245, 158, 11, 0.25);
 }
 
-.tech-element-card[data-cat="FRONTEND"] {
-  border-color: rgba(6, 182, 212, 0.4);
+.tech-flip-card[data-cat="FRONTEND"] .tech-face {
+  border-color: rgba(6, 182, 212, 0.45);
   background: #f0fdff;
 }
-.tech-element-card[data-cat="FRONTEND"] .elem-sym { color: #0891b2; }
-.tech-element-card[data-cat="FRONTEND"] .elem-cat { color: #0e7490; }
-.tech-element-card[data-cat="FRONTEND"]:hover {
+.tech-flip-card[data-cat="FRONTEND"] .elem-sym { color: #0891b2; }
+.tech-flip-card[data-cat="FRONTEND"] .elem-cat { color: #0e7490; }
+.tech-flip-card[data-cat="FRONTEND"] .tech-back-pill {
+  background: rgba(6, 182, 212, 0.15);
+  color: #0e7490;
+}
+.tech-flip-card[data-cat="FRONTEND"]:hover .tech-face {
   border-color: #06b6d4;
   box-shadow: 0 8px 24px rgba(6, 182, 212, 0.25);
 }
 
-.tech-element-card[data-cat="BACKEND"] {
-  border-color: rgba(16, 185, 129, 0.4);
+.tech-flip-card[data-cat="BACKEND"] .tech-face {
+  border-color: rgba(16, 185, 129, 0.45);
   background: #f0fdf4;
 }
-.tech-element-card[data-cat="BACKEND"] .elem-sym { color: #059669; }
-.tech-element-card[data-cat="BACKEND"] .elem-cat { color: #047857; }
-.tech-element-card[data-cat="BACKEND"]:hover {
+.tech-flip-card[data-cat="BACKEND"] .elem-sym { color: #059669; }
+.tech-flip-card[data-cat="BACKEND"] .elem-cat { color: #047857; }
+.tech-flip-card[data-cat="BACKEND"] .tech-back-pill {
+  background: rgba(16, 185, 129, 0.15);
+  color: #047857;
+}
+.tech-flip-card[data-cat="BACKEND"]:hover .tech-face {
   border-color: #10b981;
   box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
 }
 
-.tech-element-card[data-cat="AI_ML"] {
-  border-color: rgba(139, 92, 246, 0.4);
+.tech-flip-card[data-cat="AI_ML"] .tech-face {
+  border-color: rgba(139, 92, 246, 0.45);
   background: #faf5ff;
 }
-.tech-element-card[data-cat="AI_ML"] .elem-sym { color: #7c3aed; }
-.tech-element-card[data-cat="AI_ML"] .elem-cat { color: #6d28d9; }
-.tech-element-card[data-cat="AI_ML"]:hover {
+.tech-flip-card[data-cat="AI_ML"] .elem-sym { color: #7c3aed; }
+.tech-flip-card[data-cat="AI_ML"] .elem-cat { color: #6d28d9; }
+.tech-flip-card[data-cat="AI_ML"] .tech-back-pill {
+  background: rgba(139, 92, 246, 0.15);
+  color: #6d28d9;
+}
+.tech-flip-card[data-cat="AI_ML"]:hover .tech-face {
   border-color: #8b5cf6;
   box-shadow: 0 8px 24px rgba(139, 92, 246, 0.25);
 }
 
-.tech-element-card[data-cat="CLOUD_DEVOPS"] {
-  border-color: rgba(249, 115, 22, 0.4);
+.tech-flip-card[data-cat="CLOUD_DEVOPS"] .tech-face {
+  border-color: rgba(249, 115, 22, 0.45);
   background: #fff7ed;
 }
-.tech-element-card[data-cat="CLOUD_DEVOPS"] .elem-sym { color: #ea580c; }
-.tech-element-card[data-cat="CLOUD_DEVOPS"] .elem-cat { color: #c2410c; }
-.tech-element-card[data-cat="CLOUD_DEVOPS"]:hover {
+.tech-flip-card[data-cat="CLOUD_DEVOPS"] .elem-sym { color: #ea580c; }
+.tech-flip-card[data-cat="CLOUD_DEVOPS"] .elem-cat { color: #c2410c; }
+.tech-flip-card[data-cat="CLOUD_DEVOPS"] .tech-back-pill {
+  background: rgba(249, 115, 22, 0.15);
+  color: #c2410c;
+}
+.tech-flip-card[data-cat="CLOUD_DEVOPS"]:hover .tech-face {
   border-color: #f97316;
   box-shadow: 0 8px 24px rgba(249, 115, 22, 0.25);
 }
 
-.tech-element-card[data-cat="DATABASES"] {
-  border-color: rgba(59, 130, 246, 0.4);
+.tech-flip-card[data-cat="DATABASES"] .tech-face {
+  border-color: rgba(59, 130, 246, 0.45);
   background: #eff6ff;
 }
-.tech-element-card[data-cat="DATABASES"] .elem-sym { color: #2563eb; }
-.tech-element-card[data-cat="DATABASES"] .elem-cat { color: #1d4ed8; }
-.tech-element-card[data-cat="DATABASES"]:hover {
+.tech-flip-card[data-cat="DATABASES"] .elem-sym { color: #2563eb; }
+.tech-flip-card[data-cat="DATABASES"] .elem-cat { color: #1d4ed8; }
+.tech-flip-card[data-cat="DATABASES"] .tech-back-pill {
+  background: rgba(59, 130, 246, 0.15);
+  color: #1d4ed8;
+}
+.tech-flip-card[data-cat="DATABASES"]:hover .tech-face {
   border-color: #3b82f6;
   box-shadow: 0 8px 24px rgba(59, 130, 246, 0.25);
 }

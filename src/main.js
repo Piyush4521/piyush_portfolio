@@ -461,6 +461,35 @@ const periodicElements = [
   { num: 26, sym: 'Fs', name: 'Cloud Firestore', cat: 'DATABASES', weight: 'Realtime', role: 'Live document sync, offline client persistence, optimistic UI.', projects: ['OneMeal'] }
 ];
 
+const techLogoMap = {
+  Js: `<svg viewBox="0 0 32 32" width="28" height="28"><rect width="32" height="32" rx="4" fill="#F7DF1E"/><path d="M18.5 19.5c0 3.2 2 4.5 4.5 4.5 1.8 0 3.2-.8 3.8-1.8l-2.2-1.3c-.4.7-1 1-1.6 1-1 0-1.7-.6-1.7-2.1V12h-2.8v7.5zm-8.8 1.8c.8.6 1.8 1.1 2.9 1.1 1.4 0 2.2-.7 2.2-1.7 0-1-.7-1.5-2.2-2.1-2.2-.8-3.4-1.8-3.4-3.6 0-2 1.6-3.4 3.9-3.4 1.4 0 2.4.4 3.1.9l-1 2.1c-.6-.4-1.3-.7-2.1-.7-1 0-1.5.5-1.5 1.2 0 .9.7 1.3 2.2 1.9 2.2.9 3.5 1.9 3.5 3.8 0 2.2-1.7 3.6-4.4 3.6-1.6 0-2.9-.5-3.8-1.1l1.1-2z" fill="#000"/></svg>`,
+  Ts: `<svg viewBox="0 0 32 32" width="28" height="28"><rect width="32" height="32" rx="4" fill="#3178C6"/><path d="M12.5 13.8v9.7H9.8v-9.7H6v-2.3h10.3v2.3h-3.8zm5.5 7.5c.8.6 1.8 1.1 2.9 1.1 1.4 0 2.2-.7 2.2-1.7 0-1-.7-1.5-2.2-2.1-2.2-.8-3.4-1.8-3.4-3.6 0-2 1.6-3.4 3.9-3.4 1.4 0 2.4.4 3.1.9l-1 2.1c-.6-.4-1.3-.7-2.1-.7-1 0-1.5.5-1.5 1.2 0 .9.7 1.3 2.2 1.9 2.2.9 3.5 1.9 3.5 3.8 0 2.2-1.7 3.6-4.4 3.6-1.6 0-2.9-.5-3.8-1.1l1.1-2z" fill="#fff"/></svg>`,
+  Py: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M15.9 4c-5.8 0-5.4 2.5-5.4 2.5l.01 2.6h5.5v.8H8.3S4 9.4 4 15.3c0 5.8 3.8 5.6 3.8 5.6h2.3v-3.2s-.1-3.8 3.7-3.8h5.6s3.6.1 3.6-3.5V6.7S23.5 4 15.9 4zm-2.8 1.8a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill="#3776AB"/><path d="M16.1 28c5.8 0 5.4-2.5 5.4-2.5l-.01-2.6h-5.5v-.8h7.7s4.3.5 4.3-5.4c0-5.8-3.8-5.6-3.8-5.6h-2.3v3.2s.1 3.8-3.7 3.8h-5.6s-3.6-.1-3.6 3.5v3.7s-.5 2.7 7.1 2.7zm2.8-1.8a1.2 1.2 0 110-2.4 1.2 1.2 0 010 2.4z" fill="#FFD438"/></svg>`,
+  Jv: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M13 22c5 0 8-1 11-4-2 .8-5 1.2-8 1.2-4 0-6-.7-8-1.8 1.2 2.2 3.6 4.6 5 4.6zm-1-3.5c4 0 7-.8 10-3-2 .5-4 .8-6.5.8-3 0-5-.5-7-1.3.8 1.8 2.3 3.5 3.5 3.5zm7-7.5s2 1.5 0 3c3-.5 4.5-2.5 2-4-3-1.8-6 0-6 0s2-1 4 1zm-4.5 4.5c2.5 0 5-.5 7.5-1.5-2-.5-4-.8-6.5-.8-3 0-5 .4-7 1.2.9 1 3.5 1.1 6 1.1zM24 24c-8 3-17 0-17 0 3 .8 7 1.2 11 1 4-.2 7-1 7-1z" fill="#EA2D2E"/></svg>`,
+  Sq: `<svg viewBox="0 0 32 32" width="28" height="28"><ellipse cx="16" cy="8" rx="10" ry="4" fill="#0284c7"/><path d="M6 8v7c0 2.2 4.5 4 10 4s10-1.8 10-4V8" fill="none" stroke="#0284c7" stroke-width="2.2"/><path d="M6 15v7c0 2.2 4.5 4 10 4s10-1.8 10-4v-7" fill="none" stroke="#0284c7" stroke-width="2.2"/></svg>`,
+  Re: `<svg viewBox="0 0 32 32" width="28" height="28"><ellipse cx="16" cy="16" rx="12" ry="4.5" fill="none" stroke="#00D8FF" stroke-width="1.8" transform="rotate(30 16 16)"/><ellipse cx="16" cy="16" rx="12" ry="4.5" fill="none" stroke="#00D8FF" stroke-width="1.8" transform="rotate(90 16 16)"/><ellipse cx="16" cy="16" rx="12" ry="4.5" fill="none" stroke="#00D8FF" stroke-width="1.8" transform="rotate(150 16 16)"/><circle cx="16" cy="16" r="2.2" fill="#00D8FF"/></svg>`,
+  Vt: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M26.8 5.5L16.5 27 6.2 5.5l9.2 1.8 11.4-1.8z" fill="#41D1FF"/><path d="M22 4.5L16 17l-3-4.5L17.5 4l4.5.5z" fill="#BD34FE"/><path d="M16 17l-2 5 2.5-3.5L16 17z" fill="#FFD859"/></svg>`,
+  Tw: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M16 9c-3 0-5.5 1.5-6.5 4.5 1.2-1.5 2.6-2 4-1.5 1 .3 1.7 1.1 2.5 1.9C17.3 15.2 19 17 22.5 17c3 0 5.5-1.5 6.5-4.5-1.2 1.5-2.6 2-4 1.5-1-.3-1.7-1.1-2.5-1.9C21.2 10.8 19.5 9 16 9zm-6.5 8c-3 0-5.5 1.5-6.5 4.5 1.2-1.5 2.6-2 4-1.5 1 .3 1.7 1.1 2.5 1.9C10.8 23.2 12.5 25 16 25c3 0 5.5-1.5 6.5-4.5-1.2 1.5-2.6 2-4 1.5-1-.3-1.7-1.1-2.5-1.9C14.7 18.8 13 17 9.5 17z" fill="#06B6D4"/></svg>`,
+  Cs: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M6 4l2.2 21.8L16 28.5l7.8-2.7L26 4H6z" fill="#1572B6"/><path d="M16 6.2v20l6.2-2.1 1.7-17.9H16z" fill="#33A9DC"/><path d="M16 11.5h-5.2l.3 3h4.9v-3zm0 6h-3.4l.2 2.5 3.2.9v-3.4zm0-9h8.3l-.3 3H16v-3zm0 6h5.8l-.5 5.5-5.3 1.5v-7z" fill="#fff"/></svg>`,
+  Lf: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M25 6c-8 0-16 8-16 18 0 2 1 3 3 3 8 0 17-9 17-19 0-1-.8-2-4-2zm-6 17c-3-2-6-5-7-9 4 1 8 4 10 7-1 1-2 2-3 2z" fill="#199900"/></svg>`,
+  Nd: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M16 4l10.4 6v12L16 28 5.6 22V10L16 4z" fill="#539E43"/><path d="M13.5 11v10h2.5v-5.5l3 5.5h2.5V11H19v5.5l-3-5.5h-2.5z" fill="#fff"/></svg>`,
+  Ex: `<svg viewBox="0 0 32 32" width="28" height="28"><rect width="32" height="32" rx="6" fill="#1e293b"/><text x="16" y="21" font-family="sans-serif" font-weight="900" font-size="13" fill="#fff" text-anchor="middle">ex</text></svg>`,
+  Ap: `<svg viewBox="0 0 32 32" width="28" height="28"><circle cx="8" cy="16" r="4" fill="#0ea5e9"/><circle cx="24" cy="9" r="4" fill="#10b981"/><circle cx="24" cy="23" r="4" fill="#8b5cf6"/><path d="M12 16h8m-3-4l4 4-4 4" fill="none" stroke="#64748b" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+  Jw: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M16 4l9 4v7c0 6-4 11-9 13-5-2-9-7-9-13V8l9-4z" fill="#7c3aed"/><circle cx="16" cy="15" r="3" fill="#fff"/><path d="M16 18v3" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+  Tf: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M16 5l8 4.6v9.2L16 23.4V5z" fill="#FF6F00"/><path d="M16 5L8 9.6v9.2l8 4.6V5z" fill="#FFA800"/><path d="M16 14.2l5.5-3.2v6.4L16 20.6v-6.4z" fill="#FF8F00"/></svg>`,
+  Ge: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M16 4c.5 6 5.5 11 11.5 11.5-6 .5-11 5.5-11.5 11.5-.5-6-5.5-11-11.5-11.5 6-.5 11-5.5 11.5-11.5z" fill="url(#geminiGrad)"/><defs><linearGradient id="geminiGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4E82EE"/><stop offset="50%" stop-color="#9B72CF"/><stop offset="100%" stop-color="#D96570"/></linearGradient></defs></svg>`,
+  Cv: `<svg viewBox="0 0 32 32" width="28" height="28"><circle cx="16" cy="10" r="5" fill="#EF4444"/><circle cx="10" cy="21" r="5" fill="#10B981"/><circle cx="22" cy="21" r="5" fill="#3B82F6"/><circle cx="16" cy="10" r="2.2" fill="#fff"/><circle cx="10" cy="21" r="2.2" fill="#fff"/><circle cx="22" cy="21" r="2.2" fill="#fff"/></svg>`,
+  Dk: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M28 17.5c-.8 0-1.5.3-2 .8-.7-.4-1.7-.6-2.7-.4l-.8-2h-3v2.8H7c-1.8 0-3 1.2-3 3 0 4.5 4.5 7.5 12 7.5s12.5-4 13-9.5c0-.4-.4-.8-.9-.8h-.1z" fill="#1D63ED"/><rect x="8" y="14" width="2.4" height="2" fill="#1D63ED"/><rect x="11.2" y="14" width="2.4" height="2" fill="#1D63ED"/><rect x="14.4" y="14" width="2.4" height="2" fill="#1D63ED"/><rect x="11.2" y="11.2" width="2.4" height="2" fill="#1D63ED"/><rect x="14.4" y="11.2" width="2.4" height="2" fill="#1D63ED"/></svg>`,
+  Aw: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M7 19c6 4.5 12 4.5 18 0" stroke="#FF9900" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M23 16.5l2.5 2.5-3 1" fill="#FF9900"/><text x="16" y="14" font-family="sans-serif" font-weight="900" font-size="9" fill="#232F3E" text-anchor="middle">AWS</text></svg>`,
+  Lx: `<svg viewBox="0 0 32 32" width="28" height="28"><ellipse cx="16" cy="18" rx="8" ry="9" fill="#111"/><ellipse cx="16" cy="19" rx="5.5" ry="6.5" fill="#fff"/><circle cx="13" cy="11" r="1.5" fill="#111"/><circle cx="19" cy="11" r="1.5" fill="#111"/><path d="M14 13.5c1 .8 3 .8 4 0l-2 3-2-3z" fill="#FFA500"/><path d="M9 25c2 1 5 1 6 0m2 0c2 1 5 1 6 0" stroke="#FFA500" stroke-width="2" stroke-linecap="round"/></svg>`,
+  Gt: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M27 14.5l-9.5-9.5c-.8-.8-2-.8-2.8 0l-9.5 9.5c-.8.8-.8 2 0 2.8l9.5 9.5c.8.8 2 .8 2.8 0l9.5-9.5c.8-.8.8-2 0-2.8z" fill="#F05032"/><circle cx="13" cy="14" r="2" fill="#fff"/><circle cx="19" cy="12" r="2" fill="#fff"/><circle cx="19" cy="20" r="2" fill="#fff"/><path d="M13 14h3v6h3m-3-6v-2h3" stroke="#fff" stroke-width="1.6" fill="none"/></svg>`,
+  Ci: `<svg viewBox="0 0 32 32" width="28" height="28"><circle cx="16" cy="16" r="10" fill="none" stroke="#10b981" stroke-width="2.5" stroke-dasharray="14 4"/><circle cx="16" cy="16" r="4" fill="#10b981"/><path d="M16 6v3m0 14v3m10-10h-3M9 16H6" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+  Pg: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M16 5c-5.5 0-9 4-9 8.5 0 3 1.5 5.5 4 7v4.5l3-2h2c5.5 0 9-4 9-8.5S21.5 5 16 5z" fill="#336791"/><path d="M14 11a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm6 0a1.5 1.5 0 110 3 1.5 1.5 0 010-3z" fill="#fff"/></svg>`,
+  Sb: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M17.5 4.5l-9 12.5h8.5l-3 10.5 11-14h-8.5l3-9z" fill="#3ECF8E"/></svg>`,
+  Mg: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M16 4s6 6 6 12c0 4.5-3 8-6 12-3-4-6-7.5-6-12 0-6 6-12 6-12z" fill="#47A248"/><path d="M16 6v21c-.5-.5-1-1.2-1-2 0-3 1-8 1-19z" fill="#3FA037"/></svg>`,
+  Fs: `<svg viewBox="0 0 32 32" width="28" height="28"><path d="M7 23l1.5-15.5 5 5L7 23z" fill="#FFA000"/><path d="M16.5 4.5L7 23l18-3.5L16.5 4.5z" fill="#FFC400"/><path d="M25 19.5l-3.5-13L7 23l18-3.5z" fill="#FF8F00"/></svg>`
+};
+
 function initPeriodicTechMatrix() {
   const grid = $('#periodic-tech-grid');
   const filterBar = $('#tech-filter-bar');
@@ -468,26 +497,46 @@ function initPeriodicTechMatrix() {
   if (!grid || !filterBar) return;
 
   let activeFilter = 'ALL';
+  let flipIntervalId = null;
+  let flipStepIndex = 0;
+  let isGridHovered = false;
 
   function renderGrid() {
     grid.innerHTML = periodicElements
       .map((elem) => {
         const isDimmed = activeFilter !== 'ALL' && elem.cat !== activeFilter;
+        const logoSvg = techLogoMap[elem.sym] || `<span style="font-weight:700;font-size:1.1rem">${elem.sym}</span>`;
+
         return `
-        <button 
-          type="button" 
-          class="tech-element-card ${isDimmed ? 'is-dimmed' : ''}" 
+        <div 
+          class="tech-flip-card ${isDimmed ? 'is-dimmed' : ''}" 
           data-element-num="${elem.num}"
           data-cat="${elem.cat}"
+          role="button"
+          tabindex="0"
           aria-label="${elem.name} (${elem.sym})">
-          <div class="elem-top-row">
-            <span class="elem-num">${elem.num}</span>
-            <span class="elem-weight">${elem.weight}</span>
+          <div class="tech-flip-inner">
+            <!-- Front Face: Periodic Chemical Element -->
+            <div class="tech-face tech-face-front">
+              <div class="elem-top-row">
+                <span class="elem-num">${elem.num}</span>
+                <span class="elem-weight">${elem.weight}</span>
+              </div>
+              <span class="elem-sym">${elem.sym}</span>
+              <span class="elem-name">${elem.name}</span>
+              <span class="elem-cat">${elem.cat.replace('_', ' ')}</span>
+            </div>
+            <!-- Back Face: Mechanical Watch Logo Face -->
+            <div class="tech-face tech-face-back">
+              <div class="watch-gear-notch" aria-hidden="true"></div>
+              <div class="tech-logo-svg-wrap">
+                ${logoSvg}
+              </div>
+              <span class="tech-back-name">${elem.name}</span>
+              <span class="tech-back-pill">${elem.cat.replace('_', ' ')}</span>
+            </div>
           </div>
-          <span class="elem-sym">${elem.sym}</span>
-          <span class="elem-name">${elem.name}</span>
-          <span class="elem-cat">${elem.cat.replace('_', ' ')}</span>
-        </button>`;
+        </div>`;
       })
       .join('');
   }
@@ -495,15 +544,15 @@ function initPeriodicTechMatrix() {
   function showInspector(num) {
     const elem = periodicElements.find((e) => e.num === num);
     if (!elem || !panel) return;
+    const logoSvg = techLogoMap[elem.sym] || `<span style="font-weight:700">${elem.sym}</span>`;
 
     panel.innerHTML = `
       <div class="inspector-content">
-        <div class="inspector-symbol-box">
-          <span class="inspector-num">${elem.num}</span>
-          <span class="inspector-sym">${elem.sym}</span>
+        <div class="inspector-symbol-box" style="display:flex;align-items:center;justify-content:center;background:#faf5ff;border-color:#8b5cf6">
+          <div style="transform:scale(1.15)">${logoSvg}</div>
         </div>
         <div>
-          <h3 class="inspector-name">${elem.name}</h3>
+          <h3 class="inspector-name">${elem.name} <span style="font-size:0.85rem;color:#8b5cf6">(${elem.sym})</span></h3>
           <span class="inspector-category">${elem.cat.replace('_', ' ')} · ${elem.weight}</span>
           <p class="inspector-usage">${elem.role}</p>
         </div>
@@ -516,6 +565,76 @@ function initPeriodicTechMatrix() {
       </div>`;
   }
 
+  // Mechanical Watch-Like Auto-Flip Engine
+  function startWatchAutoFlip() {
+    stopWatchAutoFlip();
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    flipIntervalId = setInterval(() => {
+      if (isGridHovered) return;
+      const cards = $$('.tech-flip-card:not(.is-dimmed)', grid);
+      if (!cards.length) return;
+
+      // Staggered rhythmic mechanical flip of 2 cards across the board
+      const cardA = cards[flipStepIndex % cards.length];
+      const cardB = cards[(flipStepIndex + 7) % cards.length];
+
+      if (cardA && !cardA.matches(':hover')) {
+        cardA.classList.toggle('is-flipped');
+      }
+      if (cardB && !cardB.matches(':hover')) {
+        setTimeout(() => {
+          if (!isGridHovered) cardB.classList.toggle('is-flipped');
+        }, 300);
+      }
+
+      flipStepIndex = (flipStepIndex + 1) % cards.length;
+    }, 1500);
+  }
+
+  function stopWatchAutoFlip() {
+    if (flipIntervalId) {
+      clearInterval(flipIntervalId);
+      flipIntervalId = null;
+    }
+  }
+
+  // Hover over the grid: Immediately PAUSE auto-flip
+  grid.addEventListener('mouseenter', () => {
+    isGridHovered = true;
+    stopWatchAutoFlip();
+  });
+
+  // Leaving the grid: Resume gentle auto-flip
+  grid.addEventListener('mouseleave', () => {
+    isGridHovered = false;
+    startWatchAutoFlip();
+  });
+
+  // When cursor comes onto any card: Stop and flip to TECH STACK face visible!
+  grid.addEventListener('mouseover', (e) => {
+    const card = e.target.closest('.tech-flip-card');
+    if (!card) return;
+    isGridHovered = true;
+    stopWatchAutoFlip();
+
+    // Ensure the hovered card is flipped to the tech stack / logo side
+    card.classList.add('is-flipped');
+    const num = parseInt(card.dataset.elementNum, 10);
+    showInspector(num);
+  });
+
+  // Click card toggles flip and plays audio
+  grid.addEventListener('click', (e) => {
+    const card = e.target.closest('.tech-flip-card');
+    if (!card) return;
+    card.classList.toggle('is-flipped');
+    const num = parseInt(card.dataset.elementNum, 10);
+    showInspector(num);
+    audio.playClick();
+    audio.triggerHaptic(8);
+  });
+
   // Filter Buttons
   filterBar.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-tech-filter]');
@@ -523,31 +642,14 @@ function initPeriodicTechMatrix() {
     activeFilter = btn.dataset.techFilter;
     $$('.tech-filter-btn', filterBar).forEach((b) => b.classList.toggle('is-active', b === btn));
     renderGrid();
+    startWatchAutoFlip();
     audio.playClick();
     audio.triggerHaptic(10);
   });
 
-  // Element Clicks / Hover
-  grid.addEventListener('click', (e) => {
-    const card = e.target.closest('[data-element-num]');
-    if (!card) return;
-    const num = parseInt(card.dataset.elementNum, 10);
-    $$('.tech-element-card', grid).forEach((c) => c.classList.remove('is-active'));
-    card.classList.add('is-active');
-    showInspector(num);
-    audio.playClick();
-  });
-
-  grid.addEventListener('mouseover', (e) => {
-    const card = e.target.closest('[data-element-num]');
-    if (!card) return;
-    const num = parseInt(card.dataset.elementNum, 10);
-    showInspector(num);
-  });
-
   renderGrid();
-  // Show default initial inspector
   showInspector(1);
+  startWatchAutoFlip();
 }
 
 /* -------------------------------------------------------------
