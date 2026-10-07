@@ -1,0 +1,693 @@
+{
+  "profile": {
+    "name": "Piyush Sonawane",
+    "role": "Software Engineer",
+    "microLabel": "Fullstack Developer",
+    "location": "Pune, Maharashtra, India",
+    "email": "piyushsonawane214@gmail.com",
+    "phone": "+91 7030883504",
+    "headline": "I build software that works.",
+    "subheadline": "Full-stack systems. AI-enabled applications. APIs. Cloud infrastructure. Developer tooling.",
+    "bio": "Final year Electronics and Telecommunication Engineering student with Software Development Engineer internship experience and hands-on full-stack development across frontend, backend, databases, APIs, testing, debugging, deployment, and DevOps. Experienced with React, TypeScript, JavaScript, Node.js, Python, SQL, Docker, Git, Supabase, and cloud technologies. Strong in end-to-end application development, authentication, REST APIs, database integration, testing, CI/CD, troubleshooting, and software delivery.",
+    "social": {
+      "github": "https://github.com/Piyush4521",
+      "linkedin": "https://www.linkedin.com/in/piyushsonawane2145/",
+      "twitter": "https://x.com"
+    },
+    "copyright": "© 2026 Piyush Sonawane"
+  },
+  "projects": [
+    {
+      "id": "techorbit",
+      "slug": "kh147-techorbit",
+      "number": "01",
+      "title": "KH147-TechOrbit (Chord)",
+      "tagline": "Collaborative AI Disaster Response & Crisis Telemetry Platform",
+      "category": "AI Systems · Real-Time Coordination",
+      "priority": 1,
+      "summary": "A collaborative human-AI crisis response platform engineered to coordinate multi-agency relief teams, emergency dispatch requests, automated situation synthesis, and geospatial crisis mapping during regional disasters.",
+      "technologies": [
+        "React.js",
+        "Vite",
+        "Tailwind CSS",
+        "Leaflet",
+        "REST APIs",
+        "Real-Time Telemetry",
+        "AI Decision Pipeline"
+      ],
+      "github": "https://github.com/Piyush4521/KH147-TechOrbit",
+      "demo": "https://chord-neon.vercel.app/",
+      "role": [
+        "System Architecture",
+        "Real-Time Incident Stream",
+        "Geospatial Coordination Grid",
+        "AI Prompt Synthesis"
+      ],
+      "dna": {
+        "Frontend": "React + Vite + Modern CSS",
+        "Mapping": "Interactive Leaflet Geospatial Grid",
+        "Dispatch Engine": "Real-time Telemetry & Priority Queue",
+        "Intelligence": "AI Incident Synthesis & Resource Matching",
+        "Deployment": "Vercel Edge Network"
+      },
+      "architecture": "Incident Feed & Geolocation → Edge Stream Processing → AI Priority Classifier → Multi-Agency Dispatch Dashboard",
+      "highlights": [
+        "Constructed a high-concurrency disaster coordination platform linking local relief volunteers and centralized emergency squads.",
+        "Engineered real-time interactive coordinate tracking with Leaflet and open tile routing.",
+        "Integrated AI decision pipelines to classify urgent medical triage vs. supplies dispatch requests with zero latency bottleneck.",
+        "Deployed with sub-100ms cold starts on Vercel Edge infrastructure."
+      ],
+      "engineeringDecisions": "Architected as a local-resilient web client that operates smoothly over low-bandwidth cellular links encountered in disaster zones.",
+      "challenges": "Handling erratic GPS pings from field units. Implemented spatial deduplication and client-side dead reckoning.",
+      "lessonsLearned": "Mission-critical applications require instant visual clarity, unambiguous action buttons, and zero extraneous dependencies."
+    },
+    {
+      "id": "oneops",
+      "slug": "oneops-prototype",
+      "number": "02",
+      "title": "OneOps",
+      "tagline": "AI Incident Commander for Distributed Infrastructure & Edge Devices",
+      "category": "Systems Engineering · Developer Tooling",
+      "priority": 2,
+      "summary": "An automated incident response commander that monitors real hardware device telemetry, inspects repository codebases, synthesizes root-cause diagnoses, and generates sandboxed remediation pull requests.",
+      "technologies": [
+        "JavaScript",
+        "Node.js",
+        "REST APIs",
+        "GitHub API",
+        "Git",
+        "Docker",
+        "Linux Shell"
+      ],
+      "github": "https://github.com/Piyush4521/oneops_prototype",
+      "demo": "https://oneops.netlify.app/",
+      "role": [
+        "Lead Systems Engineer",
+        "Node.js Telemetry Pipeline",
+        "GitHub Automation",
+        "Docker Sandbox Engine"
+      ],
+      "dna": {
+        "Runtime": "Node.js (ES Modules)",
+        "API Integration": "GitHub REST & Octokit API",
+        "Telemetry": "System Metrics & Log Parser",
+        "Execution Sandbox": "Docker Isolated Containers",
+        "VCS Automation": "Git Headless Automation"
+      },
+      "architecture": "Device Telemetry Ingest → Diagnostic Rule Synthesizer → GitHub Tree Inspection → Docker Patch Sandbox → Automated Verification Run",
+      "highlights": [
+        "Ingested hardware sensor metrics, crash dumps, and daemon logs from live Linux edge devices.",
+        "Automated deep code inspection against corresponding GitHub repositories using commit trees and blame history.",
+        "Synthesized reproducible fix patches and validated them within ephemeral Docker test containers.",
+        "Maintained an operational incident memory database to prevent recurring architectural regressions."
+      ],
+      "engineeringDecisions": "Enforced strict read-only execution modes and explicit user verification before dispatching write actions to production source trees.",
+      "challenges": "Rate limiting on GitHub API during rapid repository tree scans. Implemented client-side caching with ETag validation and exponential backoff.",
+      "lessonsLearned": "Reliable developer tooling prioritizes reproducibility, explicit git logs, and defensive fail-closed architecture over magical automation."
+    },
+    {
+      "id": "onemeal",
+      "slug": "onemeal",
+      "number": "03",
+      "title": "OneMeal",
+      "tagline": "AI-Powered Food Donation & Logistics Platform",
+      "category": "Full-Stack System · AI Integration",
+      "priority": 3,
+      "summary": "A full-stack React and TypeScript platform connecting food donors, NGOs, and community receivers through donation workflows, automated Gemini AI food freshness inspection, and geolocation routing.",
+      "technologies": [
+        "React.js",
+        "TypeScript",
+        "Vite",
+        "Firebase Auth",
+        "Firestore",
+        "Gemini API",
+        "React Leaflet",
+        "OpenStreetMap",
+        "Tailwind CSS"
+      ],
+      "github": "https://github.com/Piyush4521/OneMeal",
+      "demo": "https://onemeal-43e9a.web.app/",
+      "role": [
+        "System Architecture",
+        "Frontend Engineering",
+        "Firebase Integration",
+        "Gemini AI Pipeline",
+        "Geolocation Services"
+      ],
+      "dna": {
+        "Frontend": "React 18 + TypeScript + Vite",
+        "Styling": "Tailwind CSS",
+        "State & Data": "Cloud Firestore Real-time Listeners",
+        "Authentication": "Firebase Auth (JWT / OAuth)",
+        "AI Assessment": "Google Gemini Vision API",
+        "Mapping": "React Leaflet + OpenStreetMap Tile Engine",
+        "Localization": "Google Cloud Translation API"
+      },
+      "architecture": "React Client → Firebase Auth Session → Firestore Real-time Stream → Gemini Vision Inspection API → Leaflet Map Routing",
+      "highlights": [
+        "Implemented secure multi-tier authentication for donors, relief organizations, and volunteer drivers.",
+        "Integrated Gemini Vision API for automatic classification and freshness validation of food photographs before dispatch.",
+        "Engineered live donation tracking and pickup radius discovery using Leaflet and OpenStreetMap.",
+        "Integrated multi-lingual translation streams for diverse community volunteer access."
+      ],
+      "engineeringDecisions": "Chose Firestore for optimistic updates and native offline persistence. Selected Gemini Vision API to prevent subjective donor claims and streamline food quality grading prior to volunteer physical arrival.",
+      "challenges": "Handling intermittent mobile connectivity during field delivery drop-offs. Solved using client-side caching, local coordinate queuing, and idempotent background sync.",
+      "lessonsLearned": "Designed robust error boundaries around third-party image inference APIs and avoided blocking submission UX while vision analysis completes."
+    },
+    {
+      "id": "onetravel",
+      "slug": "onetravel",
+      "number": "04",
+      "title": "OneTravel",
+      "tagline": "Multi-Stop Geographic Itinerary & Path Optimization Platform",
+      "category": "Geographic Systems · Travel Tech",
+      "priority": 4,
+      "summary": "A high-performance travel planning engine with multi-stop geographic path calculation, live weather forecasting feeds, and budgetary constraints tailored for multi-city transit.",
+      "technologies": [
+        "React.js",
+        "TypeScript",
+        "Leaflet",
+        "OpenWeather API",
+        "Geocoding",
+        "Vite",
+        "Modern CSS"
+      ],
+      "github": "https://github.com/Piyush4521/OneTravel",
+      "demo": null,
+      "role": [
+        "Full-Stack Architecture",
+        "Geographic Route Computation",
+        "Weather API Ingestion",
+        "State Management"
+      ],
+      "dna": {
+        "Frontend": "React 18 + TypeScript",
+        "Mapping": "Leaflet Vector Routing Engine",
+        "Weather Feed": "OpenWeather REST API",
+        "Optimization": "Multi-Stop Traveling Salesperson Heuristic",
+        "Bundling": "Vite Production Pipeline"
+      },
+      "architecture": "User Route Parameters → Leaflet Geocoding → Spatial Path Optimization → OpenWeather Ingestion → Interactive Schedule Matrix",
+      "highlights": [
+        "Designed deterministic route scheduling factoring in real-world transit time and weather conditions.",
+        "Integrated OpenWeather API to provide proactive inclement weather advisories along transit corridors.",
+        "Implemented offline itinerary caching via IndexedDB for travelers with limited network access.",
+        "Engineered responsive touch-optimized waypoint reordering with drag-and-drop mechanics."
+      ],
+      "engineeringDecisions": "Decoupled route computation from DOM rendering to maintain consistent 60 FPS interaction while manipulating complex geographic polylines.",
+      "challenges": "Polyline rendering bottlenecks on mobile viewports. Addressed by downsampling coordinate points with Douglas-Peucker simplification.",
+      "lessonsLearned": "Geographic interfaces benefit immensely from immediate visual feedback and clear milestone markers."
+    },
+    {
+      "id": "ai-stroke",
+      "slug": "ai-stroke-detection",
+      "number": "05",
+      "title": "AI Stroke Detection System",
+      "tagline": "Medical Imaging & Automated Diagnostic Slice Visualizer",
+      "category": "Computer Vision · Healthcare Engineering",
+      "priority": 5,
+      "summary": "An end-to-end medical imaging platform for authenticated CT scan uploads, automated stroke subtype classification (ischemic vs. hemorrhagic), lesion mask generation, and interactive clinical slice visualization.",
+      "technologies": [
+        "React.js",
+        "Node.js",
+        "Express.js",
+        "REST APIs",
+        "MongoDB",
+        "Python",
+        "TensorFlow",
+        "Docker",
+        "JWT"
+      ],
+      "github": "https://github.com/Piyush4521/AI-Stroke-Detection-System",
+      "demo": null,
+      "role": [
+        "Full-Stack Architecture",
+        "Backend API Gateway",
+        "DICOM/CT Ingestion Stream",
+        "Python Model Bridge",
+        "Clinical Visualization"
+      ],
+      "dna": {
+        "Frontend": "React.js + Canvas Visualizer",
+        "API Gateway": "Node.js + Express.js",
+        "Database": "MongoDB (Patient Records & Audit Ledger)",
+        "Inference Engine": "TensorFlow + OpenCV in Python",
+        "Containerization": "Docker Containers",
+        "Auth": "JWT Role-Based Access Control"
+      },
+      "architecture": "React Dashboard → Express API Gateway (JWT) → Multer Stream Buffer → Containerized Python/TensorFlow Engine → Lesion Mask & Heatmap Output → MongoDB Audit Log",
+      "highlights": [
+        "Architected an authenticated clinical dashboard for hospital radiology technicians and on-call neurologists.",
+        "Built resilient chunked streaming for high-resolution medical CT scan image sets.",
+        "Orchestrated a decoupled Python inference microservice executing TensorFlow convolution models for lesion segmentation.",
+        "Engineered an interactive web-based slice visualizer with dynamic opacity controls for predicted lesion masks."
+      ],
+      "engineeringDecisions": "Separated the Node.js API gateway from the heavy Python inference runtime via Docker to prevent CPU-intensive CV computations from degrading HTTP gateway throughput.",
+      "challenges": "Synchronous model inference initially caused gateway timeouts on multi-slice scans. Restructured the bridge into an asynchronous job queue with event status polling.",
+      "lessonsLearned": "Medical software requires rigorous audit logs, reproducible preprocessing pipelines, and deterministic DICOM windowing thresholds."
+    },
+    {
+      "id": "robo-app",
+      "slug": "robo-app",
+      "number": "06",
+      "title": "Robo App",
+      "tagline": "Robotics Telemetry Controller & Hardware Interface",
+      "category": "Embedded Systems · Hardware Telemetry",
+      "priority": 6,
+      "summary": "A real-time telemetry visualization dashboard and communication controller for embedded robotics platforms, providing serial bus communication and low-latency motor control feedback.",
+      "technologies": [
+        "JavaScript",
+        "Web Serial API",
+        "WebSockets",
+        "HTML5 Canvas",
+        "Node.js",
+        "C++ Embedded"
+      ],
+      "github": "https://github.com/Piyush4521/Robo_App",
+      "demo": null,
+      "role": [
+        "Hardware Interface Design",
+        "Serial Communication Protocol",
+        "Real-Time Telemetry Dashboard",
+        "Embedded Controller Integration"
+      ],
+      "dna": {
+        "Frontend": "HTML5 Canvas + Web Serial API",
+        "Communication": "Bidirectional Serial Protocol & WebSockets",
+        "Telemetry Parser": "Binary Packet Framer in JavaScript",
+        "Backend": "Node.js Hardware Bridge",
+        "Firmware": "C++ Microcontroller Runtime"
+      },
+      "architecture": "Serial Bus Stream → Web Serial Buffer → Binary Packet Demuxer → Canvas Gauge Visualizer → Low-latency Control Pipeline",
+      "highlights": [
+        "Built direct browser-to-microcontroller serial communication using modern Web Serial API without proprietary drivers.",
+        "Engineered real-time 60 FPS canvas dial and trajectory indicators for motor speed and battery level.",
+        "Designed packet framing with CRC checksums ensuring zero corrupt instructions reaching hardware.",
+        "Implemented emergency kill-switch commands guaranteed to transmit with highest interrupt priority."
+      ],
+      "engineeringDecisions": "Utilized binary telemetry encoding over raw strings to reduce serial bus bandwidth utilization by 74%.",
+      "challenges": "Buffer overrun on high-baud-rate sensor bursts. Implemented a ring buffer in JavaScript to prevent dropped packets.",
+      "lessonsLearned": "Hardware engineering interfaces must fail safely and provide clear physical status indicators at all times."
+    },
+    {
+      "id": "oneflux",
+      "slug": "oneflux",
+      "number": "07",
+      "title": "OneFlux",
+      "tagline": "Reactive State Management & Observable Event Bus",
+      "category": "Core Architecture · Developer Library",
+      "priority": 7,
+      "summary": "An ultra-lightweight reactive state management and event-driven store for modern web applications featuring zero external dependencies and sub-2KB bundle footprint.",
+      "technologies": [
+        "TypeScript",
+        "Reactive Streams",
+        "Event Emitter",
+        "Jest",
+        "Vite",
+        "ES Modules"
+      ],
+      "github": "https://github.com/Piyush4521/OneFlux",
+      "demo": "https://oneflux-41cbc.web.app/",
+      "role": [
+        "Library Author & Architect",
+        "API Contract Design",
+        "Unit Test Suite",
+        "Documentation & Benchmarking"
+      ],
+      "dna": {
+        "Language": "TypeScript (Strict Mode)",
+        "Pattern": "Unidirectional Data Flow + Observables",
+        "Footprint": "1.8 KB minified + gzipped",
+        "Test Coverage": "100% Branch Coverage (Jest)",
+        "Build": "Rollup / Vite Dual ESM/CJS Output"
+      },
+      "architecture": "Action Dispatch → Immutable Reducer Stream → Subscriber Notifier Queue → Selective Component Re-render",
+      "highlights": [
+        "Implemented zero-dependency micro-observable architecture with sub-2KB footprint.",
+        "Engineered time-travel debugging capabilities with serializable state diff snapshots.",
+        "Achieved 100% test coverage across complex asynchronous state transitions.",
+        "Published with complete TypeScript definitions and comprehensive integration guides."
+      ],
+      "engineeringDecisions": "Avoided Proxies in core loops to guarantee compatibility with constrained embedded browsers and legacy mobile engines.",
+      "challenges": "Preventing memory leaks from abandoned subscriptions. Implemented auto-cleanup symbol disposers.",
+      "lessonsLearned": "Clean API ergonomics and predictable behavior drive developer adoption far more than complex features."
+    },
+    {
+      "id": "onegaurd",
+      "slug": "onegaurd",
+      "number": "08",
+      "title": "OneGaurd",
+      "tagline": "Zero-Trust Client-Side API Payload Sanitization Layer",
+      "category": "Application Security · Defensive Architecture",
+      "priority": 8,
+      "summary": "A client-side security middleware and schema contract defense layer mitigating injection vulnerabilities, parameter tampering, and malformed network payloads before network dispatch.",
+      "technologies": [
+        "TypeScript",
+        "Schema Validation",
+        "Web Security",
+        "Fetch Interceptors",
+        "Node.js",
+        "Jest"
+      ],
+      "github": "https://github.com/Piyush4521/OneGaurd",
+      "demo": null,
+      "role": [
+        "Security Architect",
+        "Schema Validator Engine",
+        "HTTP Interceptor Layer",
+        "Threat Modeling"
+      ],
+      "dna": {
+        "Core": "TypeScript Strict Sanitization Matrix",
+        "Integration": "Universal Fetch & Axios Interceptor Hook",
+        "Rule Engine": "Declarative Schema Specification",
+        "Threat Coverage": "XSS, SQLi Pattern Heuristics, Schema Drift",
+        "Runtime": "Browser & Node.js Universal"
+      },
+      "architecture": "Outgoing HTTP Request → Schema Validation Gate → Payload Deep Sanitization → Cryptographic Checksum → Safe Network Transport",
+      "highlights": [
+        "Built declarative schema validation protecting REST endpoints from client-side parameter pollution.",
+        "Engineered deep string sanitization stripping script tags, unicode exploits, and malformed JSON payloads.",
+        "Added zero-overhead development mode warning logs highlighting schema contract drift.",
+        "Integrated seamlessly with modern fetch and Axios network clients."
+      ],
+      "engineeringDecisions": "Designed with a fail-closed philosophy: any payload failing validation is rejected before initiating network traffic.",
+      "challenges": "Performance impact on deep nested JSON payloads. Solved with compiled fast-path validator functions.",
+      "lessonsLearned": "Defense-in-depth requires validation at both client boundaries and server controllers."
+    },
+    {
+      "id": "portfolio-core",
+      "slug": "portfolio-core",
+      "number": "09",
+      "title": "Portfolio Core",
+      "tagline": "Editorial Engineering Portfolio & Production PWA System",
+      "category": "Web Architecture · Design Engineering",
+      "priority": 9,
+      "summary": "The production-grade editorial portfolio web application featuring zero-dependency vanilla styling, responsive horizontal gliding showcase, offline Service Worker, and PWA capabilities.",
+      "technologies": [
+        "HTML5 Semantic",
+        "Vanilla CSS",
+        "Modern JavaScript",
+        "Vite",
+        "Service Worker",
+        "PWA Manifest"
+      ],
+      "github": "https://github.com/Piyush4521/Portfolio_core",
+      "demo": "https://piyushsonawane.dev/",
+      "role": [
+        "Design Engineering",
+        "PWA Architecture",
+        "Performance Optimization",
+        "Accessibility Compliance"
+      ],
+      "dna": {
+        "Structure": "Semantic HTML5 + Accessible ARIA",
+        "Styling": "Vanilla CSS Design System (Zero Frameworks)",
+        "Scripting": "Modular Vanilla JavaScript (ES2024)",
+        "Offline": "Custom Service Worker Cache-First Engine",
+        "Standards": "WCAG 2.1 AA Compliant, 100/100 Lighthouse Target"
+      },
+      "architecture": "Static Minimal Asset Delivery → Service Worker Offline Cache → Dynamic Horizontal Reel Stream → Accessible Dialog Modals",
+      "highlights": [
+        "Engineered 100% vanilla CSS design system honoring strict anti-vibe-coding constraints.",
+        "Constructed interactive horizontal project reel with continuous gliding, drag-to-scroll, and pause-on-hover.",
+        "Integrated Service Worker caching ensuring instant offline loading across all devices.",
+        "Implemented accessible keyboard navigation, command palette (⌘K), and responsive modals."
+      ],
+      "engineeringDecisions": "Chose Vanilla CSS and zero-dependency JS to eliminate framework bloat and guarantee sub-second initial load on any device.",
+      "challenges": "Balancing complex interactive animations with strict anti-vibe-coding editorial aesthetics. Solved with precise typographic hierarchy and subtle physics.",
+      "lessonsLearned": "High-craft editorial typography paired with native web standards produces timeless, blazing-fast web software."
+    }
+  ],
+  "flagshipProjects": [
+    {
+      "id": "techorbit",
+      "slug": "kh147-techorbit",
+      "number": "01",
+      "title": "KH147-TechOrbit (Chord)",
+      "tagline": "Collaborative AI Disaster Response & Crisis Telemetry Platform",
+      "category": "AI Systems · Real-Time Coordination",
+      "summary": "A collaborative human-AI crisis response platform engineered to coordinate multi-agency relief teams, emergency dispatch requests, automated situation synthesis, and geospatial crisis mapping during regional disasters.",
+      "technologies": [
+        "React.js",
+        "Vite",
+        "Tailwind CSS",
+        "Leaflet",
+        "REST APIs",
+        "Real-Time Telemetry"
+      ],
+      "github": "https://github.com/Piyush4521/KH147-TechOrbit",
+      "demo": "https://chord-neon.vercel.app/"
+    },
+    {
+      "id": "oneops",
+      "slug": "oneops-prototype",
+      "number": "02",
+      "title": "OneOps",
+      "tagline": "AI Incident Commander for Distributed Infrastructure & Edge Devices",
+      "category": "Systems Engineering · Developer Tooling",
+      "summary": "An automated incident response commander that monitors real hardware device telemetry, inspects repository codebases, synthesizes root-cause diagnoses, and generates sandboxed remediation pull requests.",
+      "technologies": [
+        "JavaScript",
+        "Node.js",
+        "REST APIs",
+        "GitHub API",
+        "Git",
+        "Docker"
+      ],
+      "github": "https://github.com/Piyush4521/oneops_prototype",
+      "demo": "https://oneops.netlify.app/"
+    },
+    {
+      "id": "onemeal",
+      "slug": "onemeal",
+      "number": "03",
+      "title": "OneMeal",
+      "tagline": "AI-Powered Food Donation & Logistics Platform",
+      "category": "Full-Stack System · AI Integration",
+      "summary": "A full-stack React and TypeScript platform connecting food donors, NGOs, and community receivers through donation workflows, automated Gemini AI food freshness inspection, and geolocation routing.",
+      "technologies": [
+        "React.js",
+        "TypeScript",
+        "Vite",
+        "Firebase Auth",
+        "Firestore",
+        "Gemini API"
+      ],
+      "github": "https://github.com/Piyush4521/OneMeal",
+      "demo": "https://onemeal-43e9a.web.app/"
+    },
+    {
+      "id": "onetravel",
+      "slug": "onetravel",
+      "number": "04",
+      "title": "OneTravel",
+      "tagline": "Multi-Stop Geographic Itinerary & Path Optimization Platform",
+      "category": "Geographic Systems · Travel Tech",
+      "summary": "A high-performance travel planning engine with multi-stop geographic path calculation, live weather forecasting feeds, and budgetary constraints tailored for multi-city transit.",
+      "technologies": [
+        "React.js",
+        "TypeScript",
+        "Leaflet",
+        "OpenWeather API"
+      ],
+      "github": "https://github.com/Piyush4521/OneTravel",
+      "demo": null
+    }
+  ],
+  "labBuilds": [
+    {
+      "name": "KH147-TechOrbit (Chord)",
+      "tag": "Disaster Response",
+      "description": "Collaborative human-AI crisis response platform coordinating relief teams and crisis mapping.",
+      "tech": "React · Leaflet · Real-Time APIs",
+      "github": "https://github.com/Piyush4521/KH147-TechOrbit",
+      "demo": "https://chord-neon.vercel.app/"
+    },
+    {
+      "name": "OneOps",
+      "tag": "Incident Commander",
+      "description": "AI incident commander diagnosing device telemetry and generating automated verification PRs.",
+      "tech": "Node.js · GitHub API · Docker",
+      "github": "https://github.com/Piyush4521/oneops_prototype",
+      "demo": "https://oneops.netlify.app/"
+    },
+    {
+      "name": "OneMeal",
+      "tag": "AI Logistics",
+      "description": "AI-powered food donation and distribution platform with automated freshness grading.",
+      "tech": "React · Firebase · Gemini AI",
+      "github": "https://github.com/Piyush4521/OneMeal",
+      "demo": "https://onemeal-43e9a.web.app/"
+    },
+    {
+      "name": "OneTravel",
+      "tag": "Route Optimization",
+      "description": "Multi-stop itinerary planning engine with weather forecasting integration.",
+      "tech": "React · Leaflet · Weather API",
+      "github": "https://github.com/Piyush4521/OneTravel"
+    },
+    {
+      "name": "AI Stroke Detection",
+      "tag": "Medical Diagnostic",
+      "description": "Full-stack medical imaging platform classifying stroke subtypes and rendering lesion masks.",
+      "tech": "React · Node · Python · TF",
+      "github": "https://github.com/Piyush4521/AI-Stroke-Detection-System"
+    },
+    {
+      "name": "Robo App",
+      "tag": "Hardware Telemetry",
+      "description": "Real-time robotics telemetry visualization dashboard and communication controller.",
+      "tech": "Web Serial API · Canvas · C++",
+      "github": "https://github.com/Piyush4521/Robo_App"
+    },
+    {
+      "name": "OneFlux",
+      "tag": "Reactive Library",
+      "description": "Ultra-lightweight reactive state management and event-driven store under 2KB footprint.",
+      "tech": "TypeScript · RxJS Patterns · Jest",
+      "github": "https://github.com/Piyush4521/OneFlux",
+      "demo": "https://oneflux-41cbc.web.app/"
+    },
+    {
+      "name": "OneGaurd",
+      "tag": "Security Middleware",
+      "description": "Zero-trust client-side API payload sanitization layer protecting single-page apps against injection.",
+      "tech": "TypeScript · Schema Validation · Web Security",
+      "github": "https://github.com/Piyush4521/OneGaurd"
+    },
+    {
+      "name": "Portfolio Core",
+      "tag": "Editorial PWA",
+      "description": "Editorial engineering portfolio with vanilla styling, offline PWA, and horizontal project stream.",
+      "tech": "Vanilla CSS · JavaScript · PWA",
+      "github": "https://github.com/Piyush4521/Portfolio_core",
+      "demo": "https://piyushsonawane.dev/"
+    }
+  ],
+  "experience": [
+    {
+      "company": "MCMH",
+      "role": "Software Development Engineer Intern",
+      "period": "June 2026 – September 2026",
+      "type": "Internship",
+      "location": "India",
+      "description": "Worked as a full-stack engineer contributing directly to production software features, state architecture, and API integration across the software development lifecycle.",
+      "stack": [
+        "React",
+        "TypeScript",
+        "Vite",
+        "Supabase",
+        "REST APIs",
+        "Git"
+      ],
+      "points": [
+        "Developed full-stack application features using React, TypeScript, Vite, Supabase, REST APIs, and Git within a real-world software product.",
+        "Implemented UI components, application logic, API integration, authentication, database operations, validation, and feature workflows across the SDLC.",
+        "Tested and debugged UI behavior, API responses, database operations, edge cases, and data flows to improve application reliability.",
+        "Used Git workflows for source control, feature development, debugging, code changes, and application integration."
+      ]
+    }
+  ],
+  "technicalUniverse": {
+    "categories": [
+      {
+        "name": "Languages",
+        "skills": [
+          "JavaScript (ES2024)",
+          "TypeScript",
+          "Python",
+          "Java",
+          "C",
+          "SQL"
+        ]
+      },
+      {
+        "name": "Frontend",
+        "skills": [
+          "React.js",
+          "HTML5 & Semantic Web",
+          "CSS3 / Vanilla CSS",
+          "Tailwind CSS",
+          "Vite",
+          "React Leaflet",
+          "DOM & Web APIs"
+        ]
+      },
+      {
+        "name": "Backend",
+        "skills": [
+          "Node.js",
+          "Express.js",
+          "RESTful Architecture",
+          "JWT Authentication",
+          "Authorization Systems",
+          "API Integration",
+          "JSON Streams"
+        ]
+      },
+      {
+        "name": "Databases",
+        "skills": [
+          "PostgreSQL",
+          "Supabase",
+          "MongoDB",
+          "Cloud Firestore",
+          "Firebase",
+          "Oracle SQL"
+        ]
+      },
+      {
+        "name": "AI & Machine Learning",
+        "skills": [
+          "TensorFlow",
+          "Google Gemini API",
+          "Python Model Integration",
+          "Image Analysis & Computer Vision",
+          "Prompt Engineering"
+        ]
+      },
+      {
+        "name": "Cloud & DevOps",
+        "skills": [
+          "Docker",
+          "AWS (EC2, S3, RDS)",
+          "Linux Administration",
+          "Git & GitHub",
+          "GitHub Actions",
+          "CI/CD Pipelines",
+          "Firebase Hosting"
+        ]
+      },
+      {
+        "name": "Testing & Methods",
+        "skills": [
+          "API Testing",
+          "Unit Testing",
+          "Integration Testing",
+          "Functional Testing",
+          "Data Validation",
+          "SDLC",
+          "Agile Workflows"
+        ]
+      }
+    ]
+  },
+  "education": {
+    "institution": "N. B. Navale Sinhgad College Of Engineering, Solapur",
+    "degree": "B.E. in Electronics and Telecommunication (ENTC)",
+    "period": "2023 – 2027",
+    "grade": "8.43 SGPA (till Sem VI)",
+    "leadership": "Associate General Secretary & Departmental Cultural Secretary, NBNSCOE",
+    "achievements": "Hackathon Success: 1× Winner, 2× Top 4 Finishes",
+    "hsc": {
+      "college": "MGSM's Arts, Science and Commerce College, Chopda",
+      "percentage": "77.23%"
+    },
+    "languages": [
+      "English",
+      "Hindi",
+      "Marathi"
+    ]
+  }
+}
