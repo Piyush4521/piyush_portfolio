@@ -1361,7 +1361,10 @@ function initPwaInstall() {
   });
 
   installBtn.addEventListener('click', async () => {
-    if (!deferredInstallPrompt) return;
+    if (!deferredInstallPrompt) {
+      alert('To install this app on your device:\n• On Chrome/Edge: Click the install icon in the address bar or menu > "Install Piyush Portfolio"\n• On iOS Safari: Tap Share > "Add to Home Screen"');
+      return;
+    }
     deferredInstallPrompt.prompt();
     const { outcome } = await deferredInstallPrompt.userChoice;
     if (outcome === 'accepted') {
@@ -1445,23 +1448,23 @@ function initOfflineBanner() {
 
 function initServiceWorker() {
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-    navigator.serviceWorker.register('/sw.js').then((reg) => {
-      // Force immediate check for new sw.js
-      reg.update().catch(() => {});
-      reg.addEventListener('updatefound', () => {
-        const newWorker = reg.installing;
-        if (newWorker) {
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              window.location.reload();
-            }
-          });
-        }
-      });
-    }).catch(() => {});
-
+    let refreshing = false;
     navigator.serviceWorker.addEventListener('controllerchange', () => {
-      window.location.reload();
+      if (refreshing) return;
+      refreshing = true;
+      const lastReload = safeStorage.get('sw_last_reload', '0');
+      const now = Date.now();
+      if (now - parseInt(lastReload, 10) > 15000) {
+        safeStorage.set('sw_last_reload', String(now));
+        window.location.reload();
+      }
     });
+
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then((reg) => {
+        reg.update().catch(() => {});
+      })
+      .catch(() => {});
   }
 }
