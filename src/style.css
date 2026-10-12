@@ -29,17 +29,31 @@ html {
   background: #fbfbfa;
   color: var(--ink);
   overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
   margin: 0;
   padding: 0;
   width: 100%;
+  max-width: 100%;
   font-family: var(--font-sans);
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   background: #fbfbfa;
   overflow-x: hidden;
+}
+
+.stage,
+.browser-frame,
+main,
+.chapter {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.horizontal-reel-container {
+  overflow-x: auto !important;
 }
 
 button,
@@ -3100,8 +3114,18 @@ dialog::backdrop {
   }
 
   .display-heading {
-    font-size: clamp(2rem, 7.5vw, 3.2rem) !important;
+    font-size: clamp(1.75rem, 7vw, 3.2rem) !important;
     word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .card-title,
+  .card-title-btn,
+  .bento-title,
+  .telemetry-card-title,
+  .case-modal-title {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
   }
   
   /* 01. Mobile Hero Viewport: Moderate space over picture */
