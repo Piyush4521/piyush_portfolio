@@ -399,18 +399,33 @@ function initBentoMetrics() {
   if (!grid) return;
 
   let hasAnimated = false;
+  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const animateCounters = () => {
     if (hasAnimated) return;
     hasAnimated = true;
-    audio.playWhoosh();
 
     const counters = $$('.bento-number', grid);
+    if (prefersReducedMotion) {
+      counters.forEach((el) => {
+        const target = parseFloat(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        const decimals = parseInt(el.dataset.decimals || '0', 10);
+        if (!isNaN(target)) {
+          el.textContent = `${target.toFixed(decimals)}${suffix}`;
+        }
+      });
+      return;
+    }
+
+    audio.playWhoosh();
     counters.forEach((el) => {
       const target = parseFloat(el.dataset.target);
       const suffix = el.dataset.suffix || '';
       const decimals = parseInt(el.dataset.decimals || '0', 10);
-      const duration = 1600; // ms
+      if (isNaN(target)) return;
+
+      const duration = 1500; // ms
       const startTime = performance.now();
 
       function update(now) {
@@ -434,7 +449,7 @@ function initBentoMetrics() {
 
     setTimeout(() => {
       audio.playChime();
-    }, 1650);
+    }, 1550);
   };
 
   const observer = new IntersectionObserver(

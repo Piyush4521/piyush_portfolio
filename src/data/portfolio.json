@@ -53,8 +53,8 @@
       "highlights": [
         "Constructed a high-concurrency disaster coordination platform linking local relief volunteers and centralized emergency squads.",
         "Engineered real-time interactive coordinate tracking with Leaflet and open tile routing.",
-        "Integrated AI decision pipelines to classify urgent medical triage vs. supplies dispatch requests with zero latency bottleneck.",
-        "Deployed with sub-100ms cold starts on Vercel Edge infrastructure."
+        "Integrated AI decision pipelines to classify urgent medical triage vs. supplies dispatch requests with optimized sub-120ms dispatch latency.",
+        "Deployed with rapid sub-second edge response on Vercel Edge infrastructure."
       ],
       "engineeringDecisions": "Architected as a local-resilient web client that operates smoothly over low-bandwidth cellular links encountered in disaster zones.",
       "challenges": "Handling erratic GPS pings from field units. Implemented spatial deduplication and client-side dead reckoning.",
@@ -317,14 +317,14 @@
         "Language": "TypeScript (Strict Mode)",
         "Pattern": "Unidirectional Data Flow + Observables",
         "Footprint": "1.8 KB minified + gzipped",
-        "Test Coverage": "100% Branch Coverage (Jest)",
+        "Test Coverage": "Comprehensive Unit & Branch Coverage (Jest)",
         "Build": "Rollup / Vite Dual ESM/CJS Output"
       },
       "architecture": "Action Dispatch → Immutable Reducer Stream → Subscriber Notifier Queue → Selective Component Re-render",
       "highlights": [
         "Implemented zero-dependency micro-observable architecture with sub-2KB footprint.",
         "Engineered time-travel debugging capabilities with serializable state diff snapshots.",
-        "Achieved 100% test coverage across complex asynchronous state transitions.",
+        "Achieved high-rigor test coverage across complex asynchronous state transitions.",
         "Published with complete TypeScript definitions and comprehensive integration guides."
       ],
       "engineeringDecisions": "Avoided Proxies in core loops to guarantee compatibility with constrained embedded browsers and legacy mobile engines.",
@@ -335,7 +335,7 @@
       "id": "onegaurd",
       "slug": "onegaurd",
       "number": "08",
-      "title": "OneGaurd",
+      "title": "OneGaurd (OneGuard)",
       "tagline": "Zero-Trust Client-Side API Payload Sanitization Layer",
       "category": "Application Security · Defensive Architecture",
       "priority": 8,
