@@ -810,23 +810,31 @@ function initHorizontalProjectReel() {
     reelAnimFrameId = requestAnimationFrame(glideStep);
   }
 
-  // Hover pauses gliding
-  container.addEventListener('mouseenter', () => {
+  // Pause / resume auto-glide on both hover and focus-within (PRJ-004)
+  const pauseGlide = () => {
     isReelPaused = true;
     if (statusText) statusText.textContent = '❚❚ PAUSED';
     if (statusDot) statusDot.classList.add('is-paused');
-  });
+  };
 
-  container.addEventListener('mouseleave', () => {
-    isReelPaused = false;
-    if (statusText) statusText.textContent = 'SLOW GLIDE';
-    if (statusDot) statusDot.classList.remove('is-paused');
-  });
+  const resumeGlide = () => {
+    if (!container.matches(':hover') && !container.contains(document.activeElement)) {
+      isReelPaused = false;
+      if (statusText) statusText.textContent = 'SLOW GLIDE';
+      if (statusDot) statusDot.classList.remove('is-paused');
+    }
+  };
 
-  // Manual Prev / Next arrows
+  container.addEventListener('mouseenter', pauseGlide);
+  container.addEventListener('mouseleave', resumeGlide);
+  container.addEventListener('focusin', pauseGlide);
+  container.addEventListener('focusout', resumeGlide);
+
+  // Manual Prev / Next arrows (PRJ-002, PRJ-003)
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
       audio.playWhoosh();
+      pauseGlide();
       container.scrollBy({ left: -420, behavior: 'smooth' });
     });
   }
@@ -834,20 +842,21 @@ function initHorizontalProjectReel() {
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
       audio.playWhoosh();
+      pauseGlide();
       container.scrollBy({ left: 420, behavior: 'smooth' });
     });
   }
 
-  // Mouse drag-to-scroll
+  // Mouse drag-to-scroll with distance threshold (PRJ-005)
   let isDragging = false;
   let startX = 0;
   let startScrollLeft = 0;
+  let hasMovedFar = false;
 
   container.addEventListener('mousedown', (e) => {
-    if (e.target.closest('button, a')) return;
     isDragging = true;
-    isReelPaused = true;
-    container.classList.add('is-dragging');
+    hasMovedFar = false;
+    pauseGlide();
     startX = e.pageX - container.offsetLeft;
     startScrollLeft = container.scrollLeft;
   });
@@ -856,16 +865,36 @@ function initHorizontalProjectReel() {
     if (isDragging) {
       isDragging = false;
       container.classList.remove('is-dragging');
+      setTimeout(() => {
+        hasMovedFar = false;
+      }, 50);
+      resumeGlide();
     }
   });
 
   container.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
-    e.preventDefault();
     const x = e.pageX - container.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    container.scrollLeft = startScrollLeft - walk;
+    const delta = Math.abs(x - startX);
+    if (delta > 6) {
+      hasMovedFar = true;
+      container.classList.add('is-dragging');
+      e.preventDefault();
+      container.scrollLeft = startScrollLeft - (x - startX) * 1.5;
+    }
   });
+
+  // Capture click on container: if hasMovedFar, suppress click event
+  container.addEventListener(
+    'click',
+    (e) => {
+      if (hasMovedFar) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    },
+    true
+  );
 
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     reelAnimFrameId = requestAnimationFrame(glideStep);
