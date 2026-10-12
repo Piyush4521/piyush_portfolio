@@ -801,11 +801,17 @@ function initExperienceSection() {
       (item) => `
     <article class="timeline-item open">
       <button type="button" class="timeline-trigger" aria-expanded="true">
-        <span class="timeline-period">${cleanText(item.period)}</span>
+        <span class="timeline-period">${cleanText(item.period)} · ${cleanText(item.type || 'SDE Internship')}</span>
         <strong class="timeline-company">${cleanText(item.company)}</strong>
         <em class="timeline-role">${cleanText(item.role)}</em>
       </button>
       <div class="timeline-detail">
+        <div class="timeline-badge-row">
+          <span class="timeline-verified-tag">
+            <span class="timeline-live-dot"></span> VERIFIED SDE CREDENTIAL
+          </span>
+          <span class="timeline-location-tag">${cleanText(item.location || 'Maharashtra, India')}</span>
+        </div>
         <p class="timeline-desc">${cleanText(item.description)}</p>
         <div class="timeline-stack">
           ${item.stack.map((tech) => `<span class="tech-chip">${cleanText(tech)}</span>`).join('')}
@@ -813,6 +819,16 @@ function initExperienceSection() {
         <ul class="timeline-bullets">
           ${item.points.map((pt) => `<li>${cleanText(pt)}</li>`).join('')}
         </ul>
+        <div class="timeline-actions-row">
+          <a class="timeline-doc-btn btn-cert" href="/assets/experience/MCMH_Internship_Experience_Letter.pdf" target="_blank" rel="noopener noreferrer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>VIEW EXPERIENCE LETTER (PDF)</span> ↗
+          </a>
+          <a class="timeline-doc-btn btn-res" href="/assets/resume/Piyush_Sonawane_Software_Engineer_Intern.pdf" target="_blank" rel="noopener noreferrer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>DOWNLOAD SDE RESUME (PDF)</span> ↗
+          </a>
+        </div>
       </div>
     </article>`
     )
@@ -867,7 +883,8 @@ function initContactSection() {
     ['PHONE', `tel:${profile.phone.replace(/[^0-9+]/g, '')}`, false],
     ['GITHUB', profile.social.github, true],
     ['LINKEDIN', profile.social.linkedin, true],
-    ['RESUME (PDF)', '/assets/resume/Piyush_Sonawane_Resume.pdf', true]
+    ['SDE RESUME (PDF)', '/assets/resume/Piyush_Sonawane_Software_Engineer_Intern.pdf', true],
+    ['INTERNSHIP LETTER (PDF)', '/assets/experience/MCMH_Internship_Experience_Letter.pdf', true]
   ];
 
   container.innerHTML = links
@@ -1130,8 +1147,8 @@ function initCommandPalette() {
     { label: '05 · Periodic Table of Tech (Stack)', target: '#stack', type: 'section' },
     { label: '06 · The Lab (Repositories)', target: '#lab', type: 'section' },
     { label: '07 · Contact & Dispatch', target: '#contact', type: 'section' },
-    { label: 'Audio Toggle (Mute / Unmute)', target: 'action:audio', type: 'action' },
-    { label: 'Resume (PDF)', target: '/assets/resume/Piyush_Sonawane_Resume.pdf', type: 'external' },
+    { label: 'SDE Resume (PDF)', target: '/assets/resume/Piyush_Sonawane_Software_Engineer_Intern.pdf', type: 'external' },
+    { label: 'Internship Experience Letter (MCMH HealthTech PDF)', target: '/assets/experience/MCMH_Internship_Experience_Letter.pdf', type: 'external' },
     { label: 'Privacy Policy', target: 'action:privacy', type: 'action' },
     { label: 'Terms & Conditions', target: 'action:terms', type: 'action' },
     ...portfolioData.projects.map((p) => ({

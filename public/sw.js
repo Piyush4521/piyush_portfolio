@@ -1,4 +1,4 @@
-const CACHE_NAME = 'piyush-portfolio-v5';
+const CACHE_NAME = 'piyush-portfolio-v6';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -8,7 +8,9 @@ const STATIC_ASSETS = [
   '/assets/images/pixar-avatar-wave.png',
   '/assets/images/portrait-bw.webp',
   '/assets/images/portrait-color.webp',
-  '/assets/resume/Piyush_Sonawane_Resume.pdf'
+  '/assets/resume/Piyush_Sonawane_Software_Engineer_Intern.pdf',
+  '/assets/resume/Piyush_Sonawane_Resume.pdf',
+  '/assets/experience/MCMH_Internship_Experience_Letter.pdf'
 ];
 
 self.addEventListener('install', (event) => {

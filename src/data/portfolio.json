@@ -2,13 +2,13 @@
   "profile": {
     "name": "Piyush Sonawane",
     "role": "Software Engineer",
-    "microLabel": "Fullstack Developer",
+    "microLabel": "Full-Stack · Backend · AI Integration",
     "location": "Pune, Maharashtra, India",
     "email": "piyushsonawane214@gmail.com",
     "phone": "+91 7030883504",
-    "headline": "I build software that works.",
-    "subheadline": "Full-stack systems. AI-enabled applications. APIs. Cloud infrastructure. Developer tooling.",
-    "bio": "Final year Electronics and Telecommunication Engineering student with Software Development Engineer internship experience and hands-on full-stack development across frontend, backend, databases, APIs, testing, debugging, deployment, and DevOps. Experienced with React, TypeScript, JavaScript, Node.js, Python, SQL, Docker, Git, Supabase, and cloud technologies. Strong in end-to-end application development, authentication, REST APIs, database integration, testing, CI/CD, troubleshooting, and software delivery.",
+    "headline": "Engineering scalable full-stack applications, reliable backend systems, and applied AI.",
+    "subheadline": "Specializing in React, TypeScript, Node.js, REST APIs, Supabase, PostgreSQL, and Python AI model pipelines.",
+    "bio": "Final year Electronics and Telecommunication Engineering student with verified Software Development Engineer internship experience and hands-on full-stack development across frontend, backend, databases, APIs, testing, debugging, and deployment. Experienced in React, TypeScript, Node.js, Python, PostgreSQL, MongoDB, Docker, Git, and Supabase. Strong in end-to-end web architectures, REST API design, JWT authentication, database persistence, and AI model integration.",
     "social": {
       "github": "https://github.com/Piyush4521",
       "linkedin": "https://www.linkedin.com/in/piyushsonawane2145/",
@@ -567,25 +567,29 @@
   ],
   "experience": [
     {
-      "company": "MCMH",
-      "role": "Software Development Engineer Intern",
-      "period": "June 2026 – September 2026",
-      "type": "Internship",
-      "location": "India",
-      "description": "Worked as a full-stack engineer contributing directly to production software features, state architecture, and API integration across the software development lifecycle.",
+      "company": "MCMH HealthTech Solutions (MyClinic)",
+      "role": "Software Product Engineering Intern",
+      "period": "June 9, 2026 – September 9, 2026",
+      "type": "Verified SDE Internship",
+      "location": "Solapur, Maharashtra, India",
+      "certificateDate": "October 09, 2026",
+      "certificatePath": "/assets/experience/MCMH_Internship_Experience_Letter.pdf",
+      "description": "Contributed to the design and development of production platform features for MyClinic, implementing clean, maintainable code, rigorous feature testing, and bug fixing alongside engineering leads across the SDLC.",
       "stack": [
         "React",
         "TypeScript",
         "Vite",
         "Supabase",
         "REST APIs",
-        "Git"
+        "Git",
+        "PostgreSQL"
       ],
       "points": [
-        "Developed full-stack application features using React, TypeScript, Vite, Supabase, REST APIs, and Git within a real-world software product.",
-        "Implemented UI components, application logic, API integration, authentication, database operations, validation, and feature workflows across the SDLC.",
-        "Tested and debugged UI behavior, API responses, database operations, edge cases, and data flows to improve application reliability.",
-        "Used Git workflows for source control, feature development, debugging, code changes, and application integration."
+        "Developed full-stack application features using React, TypeScript, Vite, Supabase, and REST APIs connecting frontend interfaces with persistent databases.",
+        "Implemented UI components, application logic, database operations, input validation, and feature workflows within an active healthcare software product.",
+        "Investigated and debugged UI behavior, API responses, database operations, and data flows alongside engineering leads to improve software reliability.",
+        "Maintained Git-based workflows for version control, feature branches, peer code reviews, troubleshooting, and continuous application integration.",
+        "Formally certified by MCMH HealthTech Solutions via official Experience Letter dated October 09, 2026."
       ]
     }
   ],
