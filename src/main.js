@@ -1293,6 +1293,11 @@ function initCommandPalette() {
     const q = query.trim().toLowerCase();
     const matched = entries.filter((e) => e.label.toLowerCase().includes(q));
 
+    if (matched.length === 0) {
+      list.innerHTML = `<div class="cmd-no-match" style="padding: 24px 16px; text-align: center; color: #64748b; font-size: 0.9rem;">No destinations found matching "<strong>${escapeHtml(query)}</strong>". Try "OneMeal", "Resume", or a section name.</div>`;
+      return;
+    }
+
     list.innerHTML = matched
       .map(
         (m) => `
@@ -1428,6 +1433,9 @@ function initNavigationHighlighting() {
       const hash = link.getAttribute('href');
       if (hash && hash.startsWith('#')) {
         e.preventDefault();
+        try {
+          history.pushState(null, '', hash);
+        } catch (_) {}
         triggerSpatialFlight(hash);
       }
     });
@@ -1449,6 +1457,14 @@ function initNavigationHighlighting() {
   );
 
   sections.forEach((s) => observer.observe(s));
+
+  // Handle browser back/forward (NAV-007)
+  window.addEventListener('popstate', () => {
+    const hash = window.location.hash;
+    if (hash && $(hash)) {
+      triggerSpatialFlight(hash);
+    }
+  });
 }
 
 function initScrollHeader() {
