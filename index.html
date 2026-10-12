@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <a class="skip-link" href="#about">Skip to content</a>
+    <a class="skip-link" href="#main">Skip to main content</a>
     <div id="offline-banner" class="offline-banner" role="status" aria-live="polite">
       OFFLINE · portfolio cached for offline reading
     </div>
@@ -36,6 +36,7 @@
     <div class="stage">
       <div class="browser-frame">
         <section class="hero" id="hero" data-section>
+          <h1 class="sr-only">Piyush Sonawane — Software Engineer &amp; Web Developer Portfolio</h1>
           <div class="hero-top">
             <a class="brand" href="#hero" aria-label="Piyush Sonawane home">
               <span class="brand-script-p">Piyush</span>
@@ -125,7 +126,7 @@
           </button>
         </nav>
 
-        <main id="main">
+        <main id="main" tabindex="-1">
           <!-- 01 ABOUT CHAPTER -->
           <section class="chapter about-chapter" id="about" data-section>
             <div class="chapter-eyebrow-row">
@@ -134,9 +135,9 @@
             </div>
             
             <div class="about-hero-block">
-              <h1 class="display-heading" id="about-display-title">
+              <h2 class="display-heading" id="about-display-title">
                 I BUILD SOFTWARE THAT WORKS.
-              </h1>
+              </h2>
               <p class="section-subheadline" id="profile-subheadline">
                 Full-stack systems. AI-enabled applications. APIs. Cloud infrastructure. Developer tooling.
               </p>
@@ -435,13 +436,13 @@
 
             <!-- Periodic Table Filter Controls -->
             <div class="tech-filter-bar" id="tech-filter-bar">
-              <button class="tech-filter-btn is-active" data-tech-filter="ALL" type="button">ALL [26]</button>
-              <button class="tech-filter-btn" data-tech-filter="LANGUAGES" type="button">LANGUAGES</button>
-              <button class="tech-filter-btn" data-tech-filter="FRONTEND" type="button">FRONTEND</button>
-              <button class="tech-filter-btn" data-tech-filter="BACKEND" type="button">BACKEND</button>
-              <button class="tech-filter-btn" data-tech-filter="AI_ML" type="button">AI & ML</button>
-              <button class="tech-filter-btn" data-tech-filter="CLOUD_DEVOPS" type="button">CLOUD & DEVOPS</button>
-              <button class="tech-filter-btn" data-tech-filter="DATABASES" type="button">DATABASES</button>
+              <button class="tech-filter-btn is-active" data-tech-filter="ALL" type="button" aria-pressed="true">ALL [26]</button>
+              <button class="tech-filter-btn" data-tech-filter="LANGUAGES" type="button" aria-pressed="false">LANGUAGES</button>
+              <button class="tech-filter-btn" data-tech-filter="FRONTEND" type="button" aria-pressed="false">FRONTEND</button>
+              <button class="tech-filter-btn" data-tech-filter="BACKEND" type="button" aria-pressed="false">BACKEND</button>
+              <button class="tech-filter-btn" data-tech-filter="AI_ML" type="button" aria-pressed="false">AI & ML</button>
+              <button class="tech-filter-btn" data-tech-filter="CLOUD_DEVOPS" type="button" aria-pressed="false">CLOUD & DEVOPS</button>
+              <button class="tech-filter-btn" data-tech-filter="DATABASES" type="button" aria-pressed="false">DATABASES</button>
             </div>
 
             <!-- Chemical Element Grid -->

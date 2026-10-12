@@ -689,11 +689,45 @@ function initPeriodicTechMatrix() {
     const btn = e.target.closest('[data-tech-filter]');
     if (!btn) return;
     activeFilter = btn.dataset.techFilter;
-    $$('.tech-filter-btn', filterBar).forEach((b) => b.classList.toggle('is-active', b === btn));
+    $$('.tech-filter-btn', filterBar).forEach((b) => {
+      const isSelected = b === btn;
+      b.classList.toggle('is-active', isSelected);
+      b.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+    });
     renderGrid();
     startWatchAutoFlip();
     audio.playClick();
     audio.triggerHaptic(10);
+  });
+
+  // Keyboard navigation & accessibility for periodic element cards
+  grid.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const card = e.target.closest('.tech-flip-card');
+      if (card) {
+        e.preventDefault();
+        card.classList.toggle('is-flipped');
+        const num = parseInt(card.dataset.elementNum, 10);
+        showInspector(num);
+        audio.playClick();
+        audio.triggerHaptic(8);
+      }
+    }
+  });
+
+  grid.addEventListener('focusin', (e) => {
+    const card = e.target.closest('.tech-flip-card');
+    if (card) {
+      isGridHovered = true;
+      stopWatchAutoFlip();
+      const num = parseInt(card.dataset.elementNum, 10);
+      showInspector(num);
+    }
+  });
+
+  grid.addEventListener('focusout', () => {
+    isGridHovered = false;
+    startWatchAutoFlip();
   });
 
   renderGrid();
