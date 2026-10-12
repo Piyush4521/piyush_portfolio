@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://piyushsonawane.dev/sitemap.xml
+Sitemap: https://portfolio-135c5.web.app/sitemap.xml
