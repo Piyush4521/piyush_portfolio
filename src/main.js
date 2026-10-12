@@ -15,13 +15,47 @@ const cleanText = (str = '') =>
     .replaceAll('Ã—', '×')
     .replaceAll('Â©', '©');
 
+const escapeHtml = (str = '') =>
+  String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
+const sanitizeText = (str = '') => escapeHtml(cleanText(str));
+
+const safeUrl = (url = '') => {
+  const trimmed = String(url).trim();
+  if (!trimmed) return '#';
+  if (/^(https?:|\/|mailto:|tel:|#)/i.test(trimmed)) {
+    return escapeHtml(trimmed);
+  }
+  return '#';
+};
+
+const safeStorage = {
+  get(key, fallback = null) {
+    try {
+      return localStorage.getItem(key) ?? fallback;
+    } catch {
+      return fallback;
+    }
+  },
+  set(key, val) {
+    try {
+      localStorage.setItem(key, String(val));
+    } catch {}
+  }
+};
+
 /* -------------------------------------------------------------
    00. Sensory UI: Tactile Audio Synthesizer & Haptics (Web Audio API)
 ------------------------------------------------------------- */
 class TactileAudioEngine {
   constructor() {
     this.ctx = null;
-    this.isMuted = localStorage.getItem('piyush_audio_muted') === 'true';
+    this.isMuted = safeStorage.get('piyush_audio_muted', 'false') === 'true';
   }
 
   initContext() {
@@ -39,7 +73,7 @@ class TactileAudioEngine {
   toggleSound() {
     this.initContext();
     this.isMuted = !this.isMuted;
-    localStorage.setItem('piyush_audio_muted', String(this.isMuted));
+    safeStorage.set('piyush_audio_muted', String(this.isMuted));
     this.updateSoundUi();
     if (!this.isMuted) {
       this.playClick();
@@ -669,43 +703,43 @@ function initHorizontalProjectReel() {
   track.innerHTML = portfolioData.projects
     .map((project) => {
       const liveBtn = project.demo
-        ? `<a class="action-btn action-live" href="${project.demo}" target="_blank" rel="noopener noreferrer">LIVE ↗</a>`
+        ? `<a class="action-btn action-live" href="${safeUrl(project.demo)}" target="_blank" rel="noopener noreferrer">LIVE ↗</a>`
         : '';
       const githubBtn = project.github
-        ? `<a class="action-btn action-github" href="${project.github}" target="_blank" rel="noopener noreferrer">GITHUB ↗</a>`
+        ? `<a class="action-btn action-github" href="${safeUrl(project.github)}" target="_blank" rel="noopener noreferrer">GITHUB ↗</a>`
         : '';
 
       return `
-      <article class="reel-card" data-project-id="${project.id}">
+      <article class="reel-card" data-project-id="${escapeHtml(project.id)}">
         <div class="card-meta-bar">
-          <span class="card-number">${project.number}</span>
-          <span class="card-category">${cleanText(project.category)}</span>
+          <span class="card-number">${escapeHtml(project.number)}</span>
+          <span class="card-category">${sanitizeText(project.category)}</span>
         </div>
         
         <h3 class="card-title">
-          <button type="button" class="card-title-btn" data-open-case="${project.id}">
-            ${cleanText(project.title)}
+          <button type="button" class="card-title-btn" data-open-case="${escapeHtml(project.id)}">
+            ${sanitizeText(project.title)}
           </button>
         </h3>
         
-        <p class="card-tagline">${cleanText(project.tagline)}</p>
+        <p class="card-tagline">${sanitizeText(project.tagline)}</p>
         
         <div class="card-schematic" aria-hidden="true">
           <div class="schematic-inner">
             <span class="schematic-label">SYSTEM ARCHITECTURE</span>
-            <code class="schematic-flow">${cleanText(project.architecture)}</code>
+            <code class="schematic-flow">${sanitizeText(project.architecture)}</code>
           </div>
         </div>
         
         <div class="card-chips">
           ${project.technologies
             .slice(0, 5)
-            .map((tech) => `<span class="tech-chip">${cleanText(tech)}</span>`)
+            .map((tech) => `<span class="tech-chip">${sanitizeText(tech)}</span>`)
             .join('')}
         </div>
         
         <div class="card-action-bar">
-          <button type="button" class="action-btn action-case" data-open-case="${project.id}">
+          <button type="button" class="action-btn action-case" data-open-case="${escapeHtml(project.id)}">
             CASE STUDY →
           </button>
           ${liveBtn}
@@ -856,14 +890,14 @@ function initLabSection() {
       (lab) => `
     <article class="lab-card">
       <div class="lab-tag-row">
-        <span class="lab-tag">${cleanText(lab.tag)}</span>
+        <span class="lab-tag">${sanitizeText(lab.tag)}</span>
       </div>
-      <h3 class="lab-title">${cleanText(lab.name)}</h3>
-      <p class="lab-desc">${cleanText(lab.description)}</p>
-      <div class="lab-tech">${cleanText(lab.tech)}</div>
+      <h3 class="lab-title">${sanitizeText(lab.name)}</h3>
+      <p class="lab-desc">${sanitizeText(lab.description)}</p>
+      <div class="lab-tech">${sanitizeText(lab.tech)}</div>
       <div class="lab-links">
-        ${lab.demo ? `<a class="lab-link" href="${lab.demo}" target="_blank" rel="noopener noreferrer">LIVE DEMO ↗</a>` : ''}
-        ${lab.github ? `<a class="lab-link" href="${lab.github}" target="_blank" rel="noopener noreferrer">GITHUB ↗</a>` : ''}
+        ${lab.demo ? `<a class="lab-link" href="${safeUrl(lab.demo)}" target="_blank" rel="noopener noreferrer">LIVE DEMO ↗</a>` : ''}
+        ${lab.github ? `<a class="lab-link" href="${safeUrl(lab.github)}" target="_blank" rel="noopener noreferrer">GITHUB ↗</a>` : ''}
       </div>
     </article>`
     )
@@ -1017,9 +1051,47 @@ function initDialogHandlers() {
   const termsOpen = $('#open-terms-btn');
   const termsClose = $('#terms-close');
 
+  let lastActiveTrigger = null;
+
   $$('dialog').forEach((dialog) => {
+    // Backdrop click: close only if click is outside bounding rectangle
     dialog.addEventListener('click', (e) => {
-      if (e.target === dialog) dialog.close();
+      const rect = dialog.getBoundingClientRect();
+      const isInDialog =
+        rect.top <= e.clientY &&
+        e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX &&
+        e.clientX <= rect.left + rect.width;
+      if (!isInDialog) {
+        dialog.close();
+      }
+    });
+
+    // Keyboard focus trap inside open dialog
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        const focusable = dialog.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    // Focus restoration on close
+    dialog.addEventListener('close', () => {
+      if (lastActiveTrigger && typeof lastActiveTrigger.focus === 'function') {
+        lastActiveTrigger.focus();
+      }
     });
   });
 
@@ -1035,47 +1107,48 @@ function initDialogHandlers() {
     const project = portfolioData.projects.find((p) => p.id === projectId);
     if (!project || !caseDialog || !caseContent) return;
 
+    lastActiveTrigger = trigger;
     audio.playWhoosh();
 
     caseContent.innerHTML = `
       <div class="case-modal-header">
-        <span class="case-eyebrow">PROJECT ${project.number} · ${cleanText(project.category)}</span>
-        <h2 class="case-modal-title" id="case-dialog-title">${cleanText(project.title)}</h2>
-        <p class="case-modal-tagline">${cleanText(project.tagline)}</p>
+        <span class="case-eyebrow">PROJECT ${escapeHtml(project.number)} · ${sanitizeText(project.category)}</span>
+        <h2 class="case-modal-title" id="case-dialog-title">${sanitizeText(project.title)}</h2>
+        <p class="case-modal-tagline">${sanitizeText(project.tagline)}</p>
       </div>
 
       <div class="case-modal-grid">
         <div class="case-main-col">
           <section class="case-section">
             <h4 class="case-heading">System Overview</h4>
-            <p>${cleanText(project.summary)}</p>
+            <p>${sanitizeText(project.summary)}</p>
           </section>
 
           <section class="case-section">
             <h4 class="case-heading">Architecture & Flow</h4>
-            <pre class="case-code-block"><code>${cleanText(project.architecture)}</code></pre>
+            <pre class="case-code-block"><code>${sanitizeText(project.architecture)}</code></pre>
           </section>
 
           <section class="case-section">
             <h4 class="case-heading">Key Technical Highlights</h4>
             <ul class="case-highlights">
-              ${project.highlights.map((h) => `<li>${cleanText(h)}</li>`).join('')}
+              ${project.highlights.map((h) => `<li>${sanitizeText(h)}</li>`).join('')}
             </ul>
           </section>
 
           <section class="case-section">
             <h4 class="case-heading">Engineering Decisions & Trade-offs</h4>
-            <p>${cleanText(project.engineeringDecisions)}</p>
+            <p>${sanitizeText(project.engineeringDecisions)}</p>
           </section>
 
           <section class="case-section">
             <h4 class="case-heading">Challenges Overcome</h4>
-            <p>${cleanText(project.challenges)}</p>
+            <p>${sanitizeText(project.challenges)}</p>
           </section>
 
           <section class="case-section">
             <h4 class="case-heading">What I Learned</h4>
-            <p>${cleanText(project.lessonsLearned)}</p>
+            <p>${sanitizeText(project.lessonsLearned)}</p>
           </section>
         </div>
 
@@ -1087,8 +1160,8 @@ function initDialogHandlers() {
                 .map(
                   ([k, v]) => `
                 <div class="dna-pair">
-                  <dt>${cleanText(k)}</dt>
-                  <dd>${cleanText(v)}</dd>
+                  <dt>${sanitizeText(k)}</dt>
+                  <dd>${sanitizeText(v)}</dd>
                 </div>`
                 )
                 .join('')}
@@ -1098,29 +1171,38 @@ function initDialogHandlers() {
           <div class="side-box">
             <h4 class="case-heading">Stack</h4>
             <div class="card-chips">
-              ${project.technologies.map((t) => `<span class="tech-chip">${cleanText(t)}</span>`).join('')}
+              ${project.technologies.map((t) => `<span class="tech-chip">${sanitizeText(t)}</span>`).join('')}
             </div>
           </div>
 
           <div class="side-box case-actions-box">
-            ${project.demo ? `<a class="action-btn action-live" href="${project.demo}" target="_blank" rel="noopener noreferrer">OPEN LIVE DEMO ↗</a>` : ''}
-            ${project.github ? `<a class="action-btn action-github" href="${project.github}" target="_blank" rel="noopener noreferrer">VIEW REPOSITORY ↗</a>` : ''}
+            ${project.demo ? `<a class="action-btn action-live" href="${safeUrl(project.demo)}" target="_blank" rel="noopener noreferrer">OPEN LIVE DEMO ↗</a>` : ''}
+            ${project.github ? `<a class="action-btn action-github" href="${safeUrl(project.github)}" target="_blank" rel="noopener noreferrer">VIEW REPOSITORY ↗</a>` : ''}
           </div>
         </aside>
       </div>`;
 
     caseDialog.showModal();
+    if (caseClose) caseClose.focus();
   });
 
   if (privacyOpen && privacyDialog) {
-    privacyOpen.addEventListener('click', () => privacyDialog.showModal());
+    privacyOpen.addEventListener('click', () => {
+      lastActiveTrigger = privacyOpen;
+      privacyDialog.showModal();
+      if (privacyClose) privacyClose.focus();
+    });
   }
   if (privacyClose && privacyDialog) {
     privacyClose.addEventListener('click', () => privacyDialog.close());
   }
 
   if (termsOpen && termsDialog) {
-    termsOpen.addEventListener('click', () => termsDialog.showModal());
+    termsOpen.addEventListener('click', () => {
+      lastActiveTrigger = termsOpen;
+      termsDialog.showModal();
+      if (termsClose) termsClose.focus();
+    });
   }
   if (termsClose && termsDialog) {
     termsClose.addEventListener('click', () => termsDialog.close());
