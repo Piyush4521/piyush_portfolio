@@ -441,15 +441,15 @@ img {
   line-height: 1;
 }
 
-/* Center Portrait Cutout */
+/* Center Portrait Cutout - Scaled to match reference proportion and eliminate top void */
 .portrait-container {
   position: absolute;
   z-index: 5;
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
-  width: clamp(330px, 34vw, 420px);
-  height: 87%;
+  width: min(88vh * 1.035, clamp(520px, 56vw, 860px));
+  height: clamp(580px, 86vh, 940px);
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -491,13 +491,13 @@ img {
   opacity: 0.88;
 }
 
-/* Flanking Cursive Signatures (Exact Match to Image 4) */
+/* Flanking Cursive Signatures (Exact Match to Reference) */
 .signature {
   position: absolute;
   z-index: 10;
   font-family: var(--font-script);
   font-weight: 400;
-  font-size: clamp(3.6rem, 5.4vw, 5.4rem);
+  font-size: clamp(3.8rem, 5.6vw, 5.8rem);
   line-height: 1;
   color: #000000;
   text-decoration: none;
@@ -514,14 +514,14 @@ img {
 }
 
 .signature-left {
-  left: clamp(17%, 21vw, 24%);
-  bottom: 22%;
+  left: clamp(5%, calc(50% - 390px), 19%);
+  bottom: clamp(110px, 18vh, 200px);
   transform: rotate(-14deg);
 }
 
 .signature-right {
-  right: clamp(14%, 18vw, 21%);
-  bottom: 24%;
+  right: clamp(5%, calc(50% - 400px), 19%);
+  bottom: clamp(130px, 21vh, 230px);
   transform: rotate(-12deg);
 }
 
@@ -3164,8 +3164,8 @@ dialog::backdrop {
 
   /* Moderate vertical proportion so head doesn't have 400px empty void */
   .portrait-container {
-    width: min(92vw, 370px);
-    height: 78%;
+    width: min(94vw, 440px);
+    height: 80svh;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
